@@ -1,4 +1,5 @@
 from django.db import models
+from portfolio.managers import SalesQuerySet
 
 
 class Sales(models.Model):
@@ -12,3 +13,4 @@ class Sales(models.Model):
     cost = models.FloatField()
     revenue = models.FloatField()
     profit = models.FloatField()
+    objects = SalesQuerySet.as_manager()
