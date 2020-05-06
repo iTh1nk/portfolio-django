@@ -3,6 +3,7 @@ import React from "react";
 export default function HomeRight() {
   return (
     <>
+    <h1>Home</h1>
       This guide shows you how to build a sample app doing various things with
       "social login" using OAuth 2.0 and Spring Boot. It starts with a simple,
       single-provider single-sign on, and works up to a client with a choice of

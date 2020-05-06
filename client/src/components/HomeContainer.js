@@ -7,6 +7,7 @@ import {
   Ref,
   Segment,
   Sticky,
+  Button,
 } from "semantic-ui-react";
 import HomeLeft from "./HomeLeft";
 import HomeRight from "./HomeRight";
@@ -17,19 +18,13 @@ export default class StickyExampleOffset extends Component {
   render() {
     return (
       <>
-        <Grid centered>
-          <Ref innerRef={this.contextRef}>
-            <Grid.Row style={{ marginLeft: "15em" }}>
-              <Grid.Column width={10}>
-                <HomeRight />
-                <Rail attached position="left">
-                  <Sticky context={this.contextRef} offset={70}>
-                    <HomeLeft />
-                  </Sticky>
-                </Rail>
-              </Grid.Column>
-            </Grid.Row>
-          </Ref>
+        <Grid>
+          <Grid.Column width={3} style={{ marginLeft: "5%" }}>
+            <HomeLeft />
+          </Grid.Column>
+          <Grid.Column width={9} style={{ marginLeft: "5%" }}>
+            <HomeRight />
+          </Grid.Column>
         </Grid>
       </>
     );

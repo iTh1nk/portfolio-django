@@ -56,9 +56,9 @@ export default function SlideBar() {
       >
         Menu
       </Button>
-      <Sidebar.Pushable as={Segment}>
+      <Sidebar.Pushable style={{marginTop: "1em"}}>
         <HorizontalSidebar
-          animation="overlay"
+          animation="push"
           direction="top"
           visible={visible}
         />
@@ -69,14 +69,9 @@ export default function SlideBar() {
             setVisible(false);
           }}
         >
-          <Segment basic>
-            <br />
-            <br />
-            <br />
-          </Segment>
+          <HomeContainer />
         </Sidebar.Pusher>
       </Sidebar.Pushable>
-      <HomeContainer />
     </div>
   );
 }
