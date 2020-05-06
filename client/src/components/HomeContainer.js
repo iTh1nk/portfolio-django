@@ -18,11 +18,11 @@ export default class StickyExampleOffset extends Component {
   render() {
     return (
       <>
-        <Grid>
-          <Grid.Column width={3} style={{ marginLeft: "5%" }}>
+        <Grid centered>
+          <Grid.Column width={3}>
             <HomeLeft />
           </Grid.Column>
-          <Grid.Column width={9} style={{ marginLeft: "5%" }}>
+          <Grid.Column width={9}>
             <HomeRight />
           </Grid.Column>
         </Grid>
