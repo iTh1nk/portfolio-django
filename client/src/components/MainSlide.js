@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Button,
   Header,
@@ -9,6 +9,7 @@ import {
   Sidebar,
   Container,
 } from "semantic-ui-react";
+import { AssignContext } from "./AssignContext";
 import HomeContainer from "./HomeContainer";
 
 const HorizontalSidebar = ({ animation, direction, visible }) => (
@@ -54,14 +55,10 @@ export default function SlideBar() {
           setVisible(!visible);
         }}
       >
-        Menu
+        MainSlide
       </Button>
-      <Sidebar.Pushable style={{marginTop: "1em"}}>
-        <HorizontalSidebar
-          animation="push"
-          direction="top"
-          visible={visible}
-        />
+      <Sidebar.Pushable style={{ marginTop: "1em" }}>
+        <HorizontalSidebar animation="push" direction="top" visible={visible} />
 
         <Sidebar.Pusher
           dimmed={visible}
@@ -69,7 +66,9 @@ export default function SlideBar() {
             setVisible(false);
           }}
         >
-          <HomeContainer />
+          <AssignContext.Provider value={{ visible, setVisible }}>
+            <HomeContainer />
+          </AssignContext.Provider>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
     </div>

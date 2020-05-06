@@ -1,4 +1,4 @@
-import React, { Component, createRef } from "react";
+import React, { Component, useContext } from "react";
 import {
   Grid,
   Header,
@@ -9,24 +9,31 @@ import {
   Sticky,
   Button,
 } from "semantic-ui-react";
+import { AssignContext } from "./AssignContext";
 import HomeLeft from "./HomeLeft";
 import HomeRight from "./HomeRight";
 
-export default class StickyExampleOffset extends Component {
-  contextRef = createRef();
+export default function HomeContainer() {
+  const { visible, setVisible } = useContext(AssignContext);
 
-  render() {
-    return (
-      <>
-        <Grid centered>
-          <Grid.Column width={3}>
-            <HomeLeft />
-          </Grid.Column>
-          <Grid.Column width={9}>
-            <HomeRight />
-          </Grid.Column>
-        </Grid>
-      </>
-    );
-  }
+  return (
+    <>
+      <Grid centered>
+        <Grid.Column width={3}>
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              setVisible(true);
+            }}
+          >
+            HomeContainer Left
+          </Button>
+          <HomeLeft />
+        </Grid.Column>
+        <Grid.Column width={9}>
+          <HomeRight />
+        </Grid.Column>
+      </Grid>
+    </>
+  );
 }
