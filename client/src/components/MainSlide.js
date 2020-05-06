@@ -7,19 +7,22 @@ import {
   Menu,
   Segment,
   Sidebar,
+  Container,
 } from "semantic-ui-react";
+import HomeContainer from "./HomeContainer";
 
-const VerticalSidebar = ({ animation, direction, visible }) => (
+const HorizontalSidebar = ({ animation, direction, visible }) => (
   <Sidebar
     as={Menu}
     animation={animation}
     direction={direction}
     icon="labeled"
     inverted
-    vertical
+    horizontal
     visible={visible}
     width="thin"
   >
+    <br />
     <a href="/">
       <Menu.Item as="a">
         <Icon name="home" />
@@ -28,13 +31,13 @@ const VerticalSidebar = ({ animation, direction, visible }) => (
     </a>
     <a href="/admin">
       <Menu.Item as="a">
-        <Icon name="gamepad" />
+        <Icon name="user" />
         Admin
       </Menu.Item>
     </a>
     <a href="/about">
       <Menu.Item as="a">
-        <Icon name="camera" />
+        <Icon name="address card" />
         About
       </Menu.Item>
     </a>
@@ -55,25 +58,26 @@ export default function SlideBar() {
         Menu
       </Button>
       <Sidebar.Pushable as={Segment}>
-        <VerticalSidebar
-          animation="slide along"
-          direction="left"
+        <HorizontalSidebar
+          animation="overlay"
+          direction="top"
           visible={visible}
         />
 
-        <Sidebar.Pusher dimmed={visible}>
+        <Sidebar.Pusher
+          dimmed={visible}
+          onClick={(e) => {
+            setVisible(false);
+          }}
+        >
           <Segment basic>
-            <Header as="h3">Application Content</Header>
-            <Image src="/favicon.ico" />
-            <Image src="/favicon.ico" />
-            <Image src="/favicon.ico" />
-            <Image src="/favicon.ico" />
-            <Image src="/favicon.ico" />
-            <Image src="/favicon.ico" />
-            <Image src="/favicon.ico" />
+            <br />
+            <br />
+            <br />
           </Segment>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
+      <HomeContainer />
     </div>
   );
 }
