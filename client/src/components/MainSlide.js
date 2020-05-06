@@ -18,25 +18,24 @@ const HorizontalSidebar = ({ animation, direction, visible }) => (
     direction={direction}
     icon="labeled"
     inverted
-    horizontal
     visible={visible}
     width="thin"
   >
     <br />
     <a href="/">
-      <Menu.Item as="a">
+      <Menu.Item>
         <Icon name="home" />
         Home
       </Menu.Item>
     </a>
     <a href="/admin">
-      <Menu.Item as="a">
+      <Menu.Item>
         <Icon name="user" />
         Admin
       </Menu.Item>
     </a>
     <a href="/about">
-      <Menu.Item as="a">
+      <Menu.Item>
         <Icon name="address card" />
         About
       </Menu.Item>
