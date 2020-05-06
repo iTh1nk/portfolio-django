@@ -19,7 +19,7 @@ export default function HomeLeft() {
 
   return (
     <>
-      <div>
+      <div> 
         <Image src="/favicon.ico" size="small" />
         <h2>Chao Feng</h2>
       </div>
