@@ -1,4 +1,4 @@
-import React, { Component, useContext } from "react";
+import React, { Component, useContext, useEffect } from "react";
 import {
   Grid,
   Header,
@@ -15,19 +15,11 @@ import HomeRight from "./HomeRight";
 
 export default function HomeContainer() {
   const { visible, setVisible } = useContext(AssignContext);
-
+  
   return (
     <>
       <Grid centered>
         <Grid.Column width={3}>
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              setVisible(true);
-            }}
-          >
-            HomeContainer Left
-          </Button>
           <HomeLeft />
         </Grid.Column>
         <Grid.Column width={9}>

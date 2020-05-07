@@ -1,0 +1,8 @@
+{
+  "apps": [
+    {
+      "name": "covid19",
+      "script": "npm start"
+    }
+  ]
+}
