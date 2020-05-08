@@ -6,4 +6,10 @@
   #home-left {
     display: none
   }
+  #home-mid {
+    display: none
+  }
+  #home-right {
+    text-align: center;
+  }
 }
