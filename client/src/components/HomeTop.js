@@ -1,13 +1,23 @@
 import React, { useContext } from "react";
-import { Responsive, Segment, Image, List, Button } from "semantic-ui-react";
+import {
+  Responsive,
+  Segment,
+  Image,
+  List,
+  Button,
+  Grid,
+} from "semantic-ui-react";
 import { AssignContext } from "./AssignContext";
 
 export default function HomeLeft() {
   const { tabSwitch, setTabSwitch } = useContext(AssignContext);
   const styles = {
+    img: {
+      paddingLeft: "5em"
+    },
     nameStyle: {
       marginBottom: "0em",
-      marginTop: ".5em"
+      marginTop: ".5em",
     },
     subPosition: {
       color: "grey",
@@ -28,13 +38,19 @@ export default function HomeLeft() {
   const debugArr = ["welcome", "item1", "item2", "item3"];
   return (
     <>
-      <div>
-        <Image src="/favicon.ico" size="small" />
-        <h2 style={styles.nameStyle}>Chao Feng</h2>
-        <span style={styles.subPosition}>Full Stack Developer</span>
-      </div>
+        <Grid columns={2}>
+          <Grid.Row>
+            <Grid.Column style={styles.img}>
+              <Image src="/favicon.ico" size="small" />
+            </Grid.Column>
+            <Grid.Column>
+              <h2 style={styles.nameStyle}>Chao Feng</h2>
+              <span style={styles.subPosition}>Full Stack Developer</span>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       <br />
-      <div>
+      {/* <div>
         <h3>Projects</h3>
         <List style={styles.indentStyle}>
           <List.Item
@@ -166,7 +182,7 @@ export default function HomeLeft() {
             }
           />
         </List>
-      </div>
+      </div> */}
     </>
   );
 }

@@ -49,15 +49,15 @@ export default function SlideBar() {
 
   return (
     <div>
-      <Button
+      {/* <Button
         onClick={(e) => {
           e.preventDefault();
           setVisible(!visible);
         }}
       >
         MainSlide
-      </Button>
-      <Sidebar.Pushable style={{ marginTop: "1em" }}>
+      </Button> */}
+      <Sidebar.Pushable style={{ marginTop: "3.5em" }}>
         <HorizontalSidebar animation="push" direction="top" visible={visible} />
 
         <Sidebar.Pusher
