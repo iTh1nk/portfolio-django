@@ -31,13 +31,16 @@ export default function HomeContainer() {
     <>
       <Grid centered>
         <AssignContext.Provider value={{ tabSwitch, setTabSwitch }}>
-          <Grid.Column width={3} id="home-left">
-            <HomeLeft />
-          </Grid.Column>
-          <Grid.Column id="home-mid"> </Grid.Column>
-          <Grid.Column width={9} id="home-right">
-            <HomeRight />
-          </Grid.Column>
+          <Grid.Row>
+            <Grid.Column width={3} id="home-left">
+              <HomeLeft />
+            </Grid.Column>
+            <Grid.Column id="home-mid"> </Grid.Column>
+            <Grid.Column width={9} id="home-right">
+              <HomeRight />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row> </Grid.Row>
         </AssignContext.Provider>
       </Grid>
     </>
