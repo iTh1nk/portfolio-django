@@ -64,8 +64,22 @@ export default function Login() {
           </Formik>
         </Modal.Content>
         <Modal.Actions>
-          <Button positive icon="user" content="Login" loading={false} />
-          <Button negative icon="home" content="Home" />
+          <Button
+            positive
+            icon="user"
+            content="Login"
+            loading={false}
+            type="submit"
+          />
+          <Button
+            color="blue"
+            icon="home"
+            content="Home"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.replace("/");
+            }}
+          />
         </Modal.Actions>
       </Modal>
     </>

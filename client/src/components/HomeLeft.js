@@ -1,13 +1,20 @@
-import React from "react";
-import { Responsive, Segment, Image, List } from "semantic-ui-react";
+import React, { useContext } from "react";
+import { Responsive, Segment, Image, List, Button } from "semantic-ui-react";
+import { AssignContext } from "./AssignContext";
 
 export default function HomeLeft() {
+  const { tabSwitch, setTabSwitch } = useContext(AssignContext);
   const styles = {
-    linkStyle: {
+    nameStyle: {
+      marginBottom: "0em",
+    },
+    subPosition: {
       color: "grey",
-      "&:hover": {
-        color: "red !important",
-      },
+      marginTop: "0em",
+      fontStyle: "italic",
+    },
+    linkStyle: {
+      color: "",
     },
     indentStyle: {
       marginLeft: ".8em",
@@ -15,13 +22,25 @@ export default function HomeLeft() {
     itemStyle: {
       marginBottom: ".3em",
     },
+    stickyStyle: {},
   };
-
+  const debugArr = ["welcome", "item1", "item2", "item3"];
   return (
     <>
       <div>
         <Image src="/favicon.ico" size="small" />
-        <h2>Chao Feng</h2>
+        <Button
+          color="blue"
+          size="mini"
+          onClick={(e) => {
+            e.preventDefault();
+            setTabSwitch(debugArr[Math.floor(Math.random() * 4)]);
+          }}
+        >
+          DEBUG
+        </Button>
+        <h2 style={styles.nameStyle}>Chao Feng</h2>
+        <span style={styles.subPosition}>Full Stack Developer</span>
       </div>
       <br />
       <br />
@@ -32,7 +51,14 @@ export default function HomeLeft() {
             style={styles.itemStyle}
             icon="folder"
             content={
-              <a href="mailto:fnchao@hotmail.com" style={styles.linkStyle}>
+              <a
+                href="mailto:fnchao@hotmail.com"
+                style={styles.linkStyle}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setTabSwitch("item1");
+                }}
+              >
                 Bill Book
               </a>
             }
@@ -41,7 +67,14 @@ export default function HomeLeft() {
             style={styles.itemStyle}
             icon="folder"
             content={
-              <a href="https://github.com/iTh1nk" style={styles.linkStyle}>
+              <a
+                href="https://github.com/iTh1nk"
+                style={styles.linkStyle}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setTabSwitch("item2");
+                }}
+              >
                 Covid-19 OC
               </a>
             }
@@ -50,7 +83,14 @@ export default function HomeLeft() {
             style={styles.itemStyle}
             icon="folder"
             content={
-              <a href="https://twitter.com/_ith1nk" style={styles.linkStyle}>
+              <a
+                href="https://twitter.com/_ith1nk"
+                style={styles.linkStyle}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setTabSwitch("item3");
+                }}
+              >
                 Safe Zone
               </a>
             }
@@ -58,10 +98,6 @@ export default function HomeLeft() {
         </List>
         <h3>About</h3>
         <List style={styles.indentStyle}>
-          <List.Item style={styles.itemStyle}>
-            <List.Icon name="marker" />
-            <List.Content style={styles.linkStyle}>Irvine, CA</List.Content>
-          </List.Item>
           <List.Item
             style={styles.itemStyle}
             icon="github"
@@ -83,6 +119,20 @@ export default function HomeLeft() {
               </a>
             }
           />
+          <List.Item style={styles.itemStyle}>
+            <List.Icon name="marker" />
+            <List.Content
+              style={styles.linkStyle}
+              content={
+                <a
+                  href="https://goo.gl/maps/CGy8mmSajrxYQSNu6"
+                  style={styles.linkStyle}
+                >
+                  Irvine, CA
+                </a>
+              }
+            />
+          </List.Item>
         </List>
         <h3>Contact</h3>
         <List style={styles.indentStyle}>
