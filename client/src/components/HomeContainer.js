@@ -34,6 +34,7 @@ export default function HomeContainer() {
           <Grid.Column width={3} id="home-left">
             <HomeLeft />
           </Grid.Column>
+          <Grid.Column> </Grid.Column>
           <Grid.Column width={9}>
             <HomeRight />
           </Grid.Column>
