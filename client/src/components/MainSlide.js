@@ -57,7 +57,7 @@ export default function SlideBar() {
       >
         MainSlide
       </Button> */}
-      <Sidebar.Pushable style={{ marginTop: "3.5em" }}>
+      <Sidebar.Pushable style={{ marginTop: "1.5em" }} id="slide-bar">
         <HorizontalSidebar animation="push" direction="top" visible={visible} />
 
         <Sidebar.Pusher
