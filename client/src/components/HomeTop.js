@@ -13,13 +13,13 @@ import { AssignContext } from "./AssignContext";
 
 export default function HomeLeft() {
   const { tabSwitch, setTabSwitch } = useContext(AssignContext);
-  const [activeItem, setActiveItem] = useState("welcome");
-  const [{ topTab }, dispatch] = useReducer(reducer, { topTab: <Welcome /> });
+  const [activeItem, setActiveItem] = useState("home");
+  const [{ topTab }, dispatch] = useReducer(reducer, { topTab: <Home /> });
   function reducer(state, action) {
     switch (action.type) {
-      case "welcome":
+      case "home":
         return {
-          topTab: <Welcome />,
+          topTab: <Home />,
         };
       case "project":
         return {
@@ -34,7 +34,7 @@ export default function HomeLeft() {
           topTab: <Contact />,
         };
       default:
-        return <Welcome />;
+        return <Home />;
     }
   }
 
@@ -69,7 +69,7 @@ export default function HomeLeft() {
     stickyStyle: {},
   };
 
-  function Welcome() {
+  function Home() {
     return (
       <>
         <Grid columns={2}>
@@ -248,7 +248,7 @@ export default function HomeLeft() {
     );
   }
 
-  const debugArr = ["welcome", "item1", "item2", "item3"];
+  const debugArr = ["home", "item1", "item2", "item3"];
   // I'm Here
   return (
     <>
@@ -256,13 +256,13 @@ export default function HomeLeft() {
       <Menu secondary style={{ marginLeft: "2.5em", marginTop: "0em" }}>
         <Menu.Item
           style={styles.topTitle}
-          name="welcome"
-          active={activeItem === "welcome"}
+          name="home"
+          active={activeItem === "home"}
           onClick={(e) => {
             e.preventDefault();
-            setActiveItem("welcome");
-            dispatch({ type: "welcome" });
-            setTabSwitch("welcome");
+            setActiveItem("home");
+            dispatch({ type: "home" });
+            setTabSwitch("home");
           }}
         />
         <Menu.Item

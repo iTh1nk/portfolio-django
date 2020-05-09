@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { AssignContext } from "./AssignContext";
-import { List, Icon } from "semantic-ui-react";
+import { List, Icon, Image } from "semantic-ui-react";
 import TextLoop from "react-text-loop";
 
 export default function HomeRight() {
@@ -10,20 +10,30 @@ export default function HomeRight() {
   const styles = {
     listIcon: ">",
     listStyle: {
-      fontSize: "1.3em",
-      wordSpacing: ".1em",
-      fontFamily: "'Fira Sans Extra Condensed', sans-serif",
+      // fontSize: "1.3em",
+      // wordSpacing: ".1em",
     },
     titleStyle: {
       color: "#e95421",
+      display: "inline-block",
+    },
+    titleImage: {
+      width: "2.3em",
+      height: "2.3em",
+      display: "inline-block",
+      marginBottom: "1em",
+      marginLeft: "1.3em",
     },
     mainParagraph: {
       marginTop: "2em",
       width: "100%",
+      fontFamily: "'Fira Sans Extra Condensed', sans-serif",
+      fontSize: "1.3em",
+      wordSpacing: ".1em",
     },
   };
 
-  function Welcome() {
+  function Home() {
     return (
       <>
         <TextLoop interval="3000">
@@ -31,39 +41,7 @@ export default function HomeRight() {
           <h1 style={styles.titleStyle}>你好 👋</h1>
         </TextLoop>
         <div style={styles.mainParagraph}>
-          {/* <List as="ol" style={styles.listStyle}>
-            <List.Item as="li" value={styles.listIcon}>
-              <p>This is a billing management app for mobile carrier bills;</p>
-            </List.Item>
-            <List.Item as="li" value={styles.listIcon}>
-              <p>React as front end and Node as backend;</p>
-            </List.Item>
-            <List.Item as="li" value={styles.listIcon}>
-              <p>Only authenticated user can use this app;</p>
-            </List.Item>
-            <List.Item as="li" value={styles.listIcon}>
-              <p>
-                Designed admin management page to add, update, or delete users,
-                billing cycles, or statements;
-              </p>
-            </List.Item>
-            <List.Item as="li" value={styles.listIcon}>
-              <p>Both front and back end are protected by authentication;</p>
-            </List.Item>
-            <hr />
-            <List.Item as="li" value={styles.listIcon}>
-              <p>
-                The app use Formik, Yup to do real-time form check include
-                userID and PIN;
-              </p>
-            </List.Item>
-            <List.Item as="li" value={styles.listIcon}>
-              <p>
-                Using React Hooks to display admin page tabs, user name, and
-                share state value between different components;
-              </p>
-            </List.Item>
-          </List> */}
+          <p>My name is Chao Feng. Welcome to my tiny but growing HOME! </p>
         </div>
       </>
     );
@@ -72,7 +50,10 @@ export default function HomeRight() {
   function Item1() {
     return (
       <>
-        <h1 style={styles.titleStyle}>Bill Book</h1>
+        <div>
+          <h1 style={styles.titleStyle}>Bill Book</h1>
+          <Image src="/bill-book.ico" style={styles.titleImage} />
+        </div>
         <div style={styles.mainParagraph}>
           <List as="ol" style={styles.listStyle}>
             <List.Item as="li" value={styles.listIcon}>
@@ -115,7 +96,10 @@ export default function HomeRight() {
   function Item2() {
     return (
       <>
-        <h1 style={styles.titleStyle}>Covid-19 OC</h1>
+        <div>
+          <h1 style={styles.titleStyle}>Covid-19 OC</h1>
+          <Image src="/covid.ico" style={styles.titleImage} />
+        </div>
         <div style={styles.mainParagraph}>
           <List as="ol" style={styles.listStyle}>
             <List.Item as="li" value={styles.listIcon}>
@@ -170,7 +154,10 @@ export default function HomeRight() {
   function Item3() {
     return (
       <>
-        <h1 style={styles.titleStyle}>Safe Zone</h1>
+        <div>
+          <h1 style={styles.titleStyle}>Safe Zone</h1>
+          <Image src="/safe-zone.ico" style={styles.titleImage} />
+        </div>
         <div style={styles.mainParagraph}>
           <List as="ol" style={styles.listStyle}>
             <List.Item as="li" value={styles.listIcon}>
@@ -239,10 +226,10 @@ export default function HomeRight() {
     );
   }
 
-  if (tabSwitch === "welcome") {
+  if (tabSwitch === "home") {
     return (
       <>
-        <Welcome />
+        <Home />
       </>
     );
   }

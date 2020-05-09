@@ -17,7 +17,7 @@ import "./HomeContainer.css";
 
 export default function HomeContainer() {
   const { visible, setVisible } = useContext(AssignContext);
-  const [tabSwitch, setTabSwitch] = useState("welcome");
+  const [tabSwitch, setTabSwitch] = useState("home");
 
   const styles = {
     homeLeft: {

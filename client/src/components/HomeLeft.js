@@ -7,7 +7,7 @@ export default function HomeLeft() {
   const styles = {
     nameStyle: {
       marginBottom: "0em",
-      marginTop: ".5em"
+      marginTop: ".5em",
     },
     subPosition: {
       color: "grey",
@@ -25,10 +25,15 @@ export default function HomeLeft() {
     },
     stickyStyle: {},
   };
-  const debugArr = ["welcome", "item1", "item2", "item3"];
+  const debugArr = ["home", "item1", "item2", "item3"];
   return (
     <>
-      <div>
+      <div
+        onClick={(e) => {
+          e.preventDefault();
+          setTabSwitch("home");
+        }}
+      >
         <Image src="/favicon.ico" size="small" />
         <h2 style={styles.nameStyle}>Chao Feng</h2>
         <span style={styles.subPosition}>Full Stack Developer</span>
