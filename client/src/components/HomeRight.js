@@ -31,7 +31,7 @@ export default function HomeRight() {
           <h1 style={styles.titleStyle}>你好 👋</h1>
         </TextLoop>
         <div style={styles.mainParagraph}>
-          <List as="ol" style={styles.listStyle}>
+          {/* <List as="ol" style={styles.listStyle}>
             <List.Item as="li" value={styles.listIcon}>
               <p>This is a billing management app for mobile carrier bills;</p>
             </List.Item>
@@ -63,7 +63,7 @@ export default function HomeRight() {
                 share state value between different components;
               </p>
             </List.Item>
-          </List>
+          </List> */}
         </div>
       </>
     );

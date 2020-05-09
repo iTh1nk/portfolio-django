@@ -75,14 +75,7 @@ export default function HomeLeft() {
         <Grid columns={2}>
           <Grid.Row>
             <Grid.Column style={styles.img}>
-              <Image
-                src="/favicon.ico"
-                size="small"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setTabSwitch("welcome");
-                }}
-              />
+              <Image src="/favicon.ico" size="small" />
             </Grid.Column>
             <Grid.Column>
               <h2 style={styles.nameStyle}>Chao Feng</h2>
@@ -269,6 +262,7 @@ export default function HomeLeft() {
             e.preventDefault();
             setActiveItem("welcome");
             dispatch({ type: "welcome" });
+            setTabSwitch("welcome");
           }}
         />
         <Menu.Item
