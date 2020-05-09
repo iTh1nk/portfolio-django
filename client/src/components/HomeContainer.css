@@ -4,6 +4,9 @@
 #home-top {
   display: none
 }
+#hrDivider {
+  display: none
+}
 
 @media only screen and (max-width: 750px) {
   #home-left {
@@ -17,5 +20,9 @@
   }
   #home-top {
     display: block
+  }
+  #hrDivider {
+    display: block;
+    width: 70%;
   }
 }

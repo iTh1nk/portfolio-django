@@ -221,18 +221,6 @@ export default function HomeLeft() {
                 />
                 <List.Item
                   style={styles.itemStyle}
-                  icon="facebook"
-                  content={
-                    <a
-                      href="https://www.facebook.com/iTh1nk"
-                      style={styles.linkStyle}
-                    >
-                      Facebook
-                    </a>
-                  }
-                />
-                <List.Item
-                  style={styles.itemStyle}
                   icon="mail"
                   content={
                     <a
