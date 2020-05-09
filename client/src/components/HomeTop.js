@@ -42,6 +42,9 @@ export default function HomeLeft() {
     topTitle: {
       fontWeight: "bold",
     },
+    tabContent: {
+      marginLeft: "5em",
+    },
     img: {
       paddingLeft: "5em",
     },
@@ -86,7 +89,7 @@ export default function HomeLeft() {
   function Project() {
     return (
       <>
-        <Grid columns={2} centered>
+        <Grid columns={2} style={styles.tabContent}>
           <Grid.Row>
             <Grid.Column>
               <List style={styles.indentStyle}>
@@ -148,7 +151,7 @@ export default function HomeLeft() {
   function About() {
     return (
       <>
-        <Grid columns={2} centered>
+        <Grid columns={2} style={styles.tabContent}>
           <Grid.Row>
             <Grid.Column>
               <List style={styles.indentStyle}>
@@ -200,7 +203,7 @@ export default function HomeLeft() {
   function Contact() {
     return (
       <>
-        <Grid columns={2} centered>
+        <Grid columns={2} style={styles.tabContent}>
           <Grid.Row>
             <Grid.Column>
               <List style={styles.indentStyle}>
@@ -262,7 +265,7 @@ export default function HomeLeft() {
   return (
     <>
       {/* <div> */}
-      <Menu secondary style={{ marginLeft: "2em", marginTop: "0em" }}>
+      <Menu secondary style={{ marginLeft: "2.5em", marginTop: "0em" }}>
         <Menu.Item
           style={styles.topTitle}
           name="welcome"
