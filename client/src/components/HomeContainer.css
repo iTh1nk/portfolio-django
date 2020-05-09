@@ -16,7 +16,7 @@
     display: none
   }
   #home-right {
-    text-align: center;
+    width: 25em !important;
   }
   #home-top {
     display: block

@@ -37,7 +37,7 @@ export default function HomeContainer() {
               <HomeTop />
             </Grid.Column>
           </Grid.Row>
-              <hr id="hrDivider"/>
+          <hr id="hrDivider" />
           <Grid.Row>
             <Grid.Column width={3} id="home-left">
               <HomeLeft />
