@@ -19,6 +19,7 @@
     width: 25em !important;
   }
   #home-top {
+    margin-top: 1.5em;
     display: block
   }
   #hrDivider {
