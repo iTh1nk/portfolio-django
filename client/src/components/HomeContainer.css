@@ -2,10 +2,14 @@
   display: block
 }
 #home-top {
+  margin-top: 1.5em;
   display: none
 }
 #hrDivider {
   display: none  
+}
+#horizonTop {
+  margin-top: 1.5em;
 }
 
 @media only screen and (max-width: 750px) {
@@ -19,7 +23,6 @@
     width: 25em !important;
   }
   #home-top {
-    margin-top: 1.5em;
     display: block
   }
   #hrDivider {

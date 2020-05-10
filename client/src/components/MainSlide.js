@@ -75,7 +75,7 @@ export default function SlideBar() {
             </Grid.Column>
           </Grid.Row>
           <hr id="hrDivider" />
-          <Grid.Row>
+          <Grid.Row id="horizonTop">
             <Grid.Column width={3} id="home-left">
               <HomeLeft />
             </Grid.Column>

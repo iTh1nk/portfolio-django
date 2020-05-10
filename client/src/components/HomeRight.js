@@ -2,6 +2,16 @@ import React, { useContext } from "react";
 import { AssignContext } from "./AssignContext";
 import { List, Icon, Image } from "semantic-ui-react";
 import TextLoop from "react-text-loop";
+import {
+  Form,
+  Button,
+  Input,
+  Dropdown,
+  TextArea,
+  Checkbox,
+} from "formik-semantic-ui";
+import * as Yup from "yup";
+import "./ErrorMessage.css";
 
 export default function HomeRight() {
   const { tabSwitch } = useContext(AssignContext);
@@ -237,8 +247,56 @@ export default function HomeRight() {
       </>
     );
   }
+
+  const validate = (value) => {
+    let errorMessage;
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+      errorMessage = "Invalid email address";
+    }
+    return errorMessage;
+  };
+
+  // Async validation function
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const validateAsync = (value) => {
+    return sleep(2000).then(() => {
+      if (["admin", "null", "god"].includes(value)) {
+        throw "Nice try";
+      }
+    });
+  };
   function SendMessage() {
-    return "Send Me A Message.";
+    return (
+      <>
+        <Form
+          initialValues={{
+            email: "",
+            name: "",
+            message: "",
+            likeMe: false,
+          }}
+          validationSchema={Yup.object({
+            name: Yup.string().required("Name is required"),
+            message: Yup.string().required("Message is required"),
+          })}
+          onSubmit={console.log("Submitted!")}
+          render={({ handleReset }) => (
+            <Form.Children>
+              <Input label="Name" name="name" />
+              <TextArea label="Message" name="message" />
+              <Checkbox label="Like my website?" name="likeMe" />
+              <Button.Submit
+                primary
+                content="Submit"
+                style={{ marginRight: "1em" }}
+              />
+              <Button onClick={handleReset} content="Reset" />
+            </Form.Children>
+          )}
+        />
+      </>
+    );
   }
 
   if (tabSwitch === "item1") {

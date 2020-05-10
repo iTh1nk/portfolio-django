@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { Button, Modal, Form } from "semantic-ui-react";
-import { Formik, Field, ErrorMessage } from "formik";
+import React, { useState, useContext } from "react";
+import { Modal, Icon } from "semantic-ui-react";
+import { Form, Button, Input } from "formik-semantic-ui";
 import * as Yup from "yup";
 import Axios from "axios";
+import "./ErrorMessage.css";
+import { AssignContext } from "./AssignContext";
 
 export default function Login() {
   const [open, setOpen] = useState(true);
+  const { setIsAuthenticated } = useContext(AssignContext);
   return (
     <>
       <Modal
@@ -16,71 +19,60 @@ export default function Login() {
         closeOnEscape={false}
         closeOnDimmerClick={false}
       >
-        <Modal.Header>Authentication</Modal.Header>
-        <Modal.Content>
-          <Formik
-            initialValues={{ username: "", password: "" }}
-            validationSchema={Yup.object({
-              username: Yup.string()
-                .min(3, "Username has to be at least 3 characters!")
-                .required("Username is required!"),
-              password: Yup.string()
-                .min(6, "Password has to be at least 6 characters!")
-                .matches(
-                  /[a-n xyz 0-5]\S/g,
-                  "Password doesn't meet requirements!"
-                )
-                .required("Password is required!"),
-            })}
-            onSubmit={(values, { setSubmitting }) => {
-              let data = {
-                username: values.username,
-                password: values.password,
-              };
-            }}
-          >
-            {/* {({ handleSubmit, isSubmitting }) => ( */}
-
-            <Form>
-              <Form.Input
-                // error={{
-                //   content: "Please enter username...",
-                //   pointing: "below",
-                // }}
-                fluid
-                label="Username"
-                placeholder="Please enter username..."
-                id="username"
-              />
-              <Form.Input
-                // error="Please enter password..."
-                fluid
-                label="Password"
-                placeholder="Please enter password..."
-                id="password"
-              />
-            </Form>
-            {/* )} */}
-          </Formik>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button
-            positive
-            icon="user"
-            content="Login"
-            loading={false}
-            type="submit"
-          />
-          <Button
-            color="blue"
-            icon="home"
-            content="Home"
+        <Modal.Header>
+          Authentication
+          <Icon
+            style={{ position: "absolute", top: "1em", right: "2em" }}
+            name="home"
             onClick={(e) => {
               e.preventDefault();
               window.location.replace("/");
             }}
           />
-        </Modal.Actions>
+        </Modal.Header>
+        <Modal.Content>
+          <Form
+            initialValues={{
+              username: "",
+              password: "",
+            }}
+            validationSchema={Yup.object({
+              username: Yup.string().required("Name is required"),
+              password: Yup.string().required("Password is required"),
+            })}
+            onSubmit={(values, formikApi) => {
+              setTimeout(() => {
+                console.log(JSON.stringify(values));
+                formikApi.setSubmitting(false);
+                setIsAuthenticated(true)
+              }, 1000);
+            }}
+            render={({ handleReset }) => (
+              <Form.Children>
+                <Input
+                  label="Username"
+                  name="username"
+                  inputProps={{
+                    type: "text",
+                  }}
+                />
+                <Input
+                  label="Password"
+                  name="password"
+                  inputProps={{
+                    type: "password",
+                  }}
+                />
+                <Button.Submit
+                  positive
+                  content="Login"
+                  style={{ marginRight: "1em" }}
+                />
+                <Button onClick={handleReset} content="Reset" />
+              </Form.Children>
+            )}
+          />
+        </Modal.Content>
       </Modal>
     </>
   );
