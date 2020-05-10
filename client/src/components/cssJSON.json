@@ -1,0 +1,29 @@
+{
+  "nameStyle": {
+    "marginBottom": "0em",
+    "marginTop": ".5em"
+  },
+  "subPosition": {
+    "color": "grey",
+    "marginTop": "0em",
+    "fontStyle": "italic"
+  },
+  "linkStyle": {
+    "color": "grey"
+  },
+  "indentStyle": {
+    "marginLeft": ".8em"
+  },
+  "itemStyle": {
+    "marginBottom": ".3em"
+  },
+  "topTitle": {
+    "fontWeight": "bold"
+  },
+  "tabContent": {
+    "marginLeft": "5em"
+  },
+  "img": {
+    "paddingLeft": "5em"
+  }
+}

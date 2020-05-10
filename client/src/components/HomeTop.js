@@ -1,18 +1,10 @@
 import React, { useContext, useState, useReducer } from "react";
-import {
-  Responsive,
-  Segment,
-  Image,
-  List,
-  Button,
-  Grid,
-  Menu,
-  Input,
-} from "semantic-ui-react";
+import { Image, List, Grid, Menu } from "semantic-ui-react";
 import { AssignContext } from "./AssignContext";
+import cssJSON from "./cssJSON.json";
 
 export default function HomeLeft() {
-  const { tabSwitch, setTabSwitch } = useContext(AssignContext);
+  const { setTabSwitch } = useContext(AssignContext);
   const [activeItem, setActiveItem] = useState("home");
   const [{ topTab }, dispatch] = useReducer(reducer, { topTab: <Home /> });
   function reducer(state, action) {
@@ -38,48 +30,17 @@ export default function HomeLeft() {
     }
   }
 
-  const styles = {
-    topTitle: {
-      fontWeight: "bold",
-    },
-    tabContent: {
-      marginLeft: "5em",
-    },
-    img: {
-      paddingLeft: "5em",
-    },
-    nameStyle: {
-      marginBottom: "0em",
-      marginTop: ".5em",
-    },
-    subPosition: {
-      color: "grey",
-      marginTop: "0em",
-      fontStyle: "italic",
-    },
-    linkStyle: {
-      color: "",
-    },
-    indentStyle: {
-      marginLeft: ".8em",
-    },
-    itemStyle: {
-      marginBottom: ".3em",
-    },
-    stickyStyle: {},
-  };
-
   function Home() {
     return (
       <>
         <Grid columns={2}>
           <Grid.Row>
-            <Grid.Column style={styles.img}>
+            <Grid.Column style={cssJSON.img}>
               <Image src="/favicon.ico" size="small" />
             </Grid.Column>
             <Grid.Column>
-              <h2 style={styles.nameStyle}>Chao Feng</h2>
-              <span style={styles.subPosition}>Full Stack Developer</span>
+              <h2 style={cssJSON.nameStyle}>Chao Feng</h2>
+              <span style={cssJSON.subPosition}>Full Stack Developer</span>
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -89,56 +50,53 @@ export default function HomeLeft() {
   function Project() {
     return (
       <>
-        <Grid columns={2} style={styles.tabContent}>
+        <Grid columns={2} style={cssJSON.tabContent}>
           <Grid.Row>
             <Grid.Column>
-              <List style={styles.indentStyle}>
+              <List style={cssJSON.indentStyle}>
                 <List.Item
-                  style={styles.itemStyle}
+                  style={cssJSON.itemStyle}
                   icon="folder"
                   content={
-                    <a
-                      href="mailto:fnchao@hotmail.com"
-                      style={styles.linkStyle}
+                    <span
+                      style={cssJSON.linkStyle}
                       onClick={(e) => {
                         e.preventDefault();
                         setTabSwitch("item1");
                       }}
                     >
                       Bill Book
-                    </a>
+                    </span>
                   }
                 />
                 <List.Item
-                  style={styles.itemStyle}
+                  style={cssJSON.itemStyle}
                   icon="folder"
                   content={
-                    <a
-                      href="https://github.com/iTh1nk"
-                      style={styles.linkStyle}
+                    <span
+                      style={cssJSON.linkStyle}
                       onClick={(e) => {
                         e.preventDefault();
                         setTabSwitch("item2");
                       }}
                     >
                       Covid-19 OC
-                    </a>
+                    </span>
                   }
                 />
                 <List.Item
-                  style={styles.itemStyle}
+                  style={cssJSON.itemStyle}
                   icon="folder"
                   content={
-                    <a
-                      href="https://twitter.com/_ith1nk"
-                      style={styles.linkStyle}
+                    <span
+                      style={cssJSON.linkStyle}
                       onClick={(e) => {
                         e.preventDefault();
                         setTabSwitch("item3");
                       }}
                     >
                       Safe Zone
-                    </a>
+                    </span>
                   }
                 />
               </List>
@@ -151,42 +109,42 @@ export default function HomeLeft() {
   function About() {
     return (
       <>
-        <Grid columns={2} style={styles.tabContent}>
+        <Grid columns={2} style={cssJSON.tabContent}>
           <Grid.Row>
             <Grid.Column>
-              <List style={styles.indentStyle}>
+              <List style={cssJSON.indentStyle}>
                 <List.Item
-                  style={styles.itemStyle}
+                  style={cssJSON.itemStyle}
                   icon="github"
                   content={
                     <a
                       href="https://github.com/iTh1nk"
-                      style={styles.linkStyle}
+                      style={cssJSON.linkStyle}
                     >
                       Github
                     </a>
                   }
                 />
                 <List.Item
-                  style={styles.itemStyle}
+                  style={cssJSON.itemStyle}
                   icon="linkedin"
                   content={
                     <a
                       href="https://www.linkedin.com/in/chaofeng16/"
-                      style={styles.linkStyle}
+                      style={cssJSON.linkStyle}
                     >
                       LinkIn
                     </a>
                   }
                 />
-                <List.Item style={styles.itemStyle}>
+                <List.Item style={cssJSON.itemStyle}>
                   <List.Icon name="marker" />
                   <List.Content
-                    style={styles.linkStyle}
+                    style={cssJSON.linkStyle}
                     content={
                       <a
                         href="https://goo.gl/maps/CGy8mmSajrxYQSNu6"
-                        style={styles.linkStyle}
+                        style={cssJSON.linkStyle}
                       >
                         Irvine, CA
                       </a>
@@ -203,41 +161,47 @@ export default function HomeLeft() {
   function Contact() {
     return (
       <>
-        <Grid columns={2} style={styles.tabContent}>
+        <Grid columns={2} style={cssJSON.tabContent}>
           <Grid.Row>
             <Grid.Column>
-              <List style={styles.indentStyle}>
+              <List style={cssJSON.indentStyle}>
                 <List.Item
-                  style={styles.itemStyle}
+                  style={cssJSON.itemStyle}
                   icon="twitter"
                   content={
                     <a
                       href="https://twitter.com/_ith1nk"
-                      style={styles.linkStyle}
+                      style={cssJSON.linkStyle}
                     >
                       Twitter
                     </a>
                   }
                 />
                 <List.Item
-                  style={styles.itemStyle}
+                  style={cssJSON.itemStyle}
                   icon="mail"
                   content={
                     <a
                       href="mailto:fnchao@hotmail.com"
-                      style={styles.linkStyle}
+                      style={cssJSON.linkStyle}
                     >
                       fnchao@hotmail.com
                     </a>
                   }
                 />
                 <List.Item
-                  style={styles.itemStyle}
+                  style={cssJSON.itemStyle}
                   icon="send"
                   content={
-                    <a href="/message" style={styles.linkStyle}>
+                    <span
+                      style={cssJSON.linkStyle}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setTabSwitch("sendMessage");
+                      }}
+                    >
                       Send Message
-                    </a>
+                    </span>
                   }
                 />
               </List>
@@ -248,14 +212,12 @@ export default function HomeLeft() {
     );
   }
 
-  const debugArr = ["home", "item1", "item2", "item3"];
   // I'm Here
   return (
     <>
-      {/* <div> */}
       <Menu secondary style={{ marginLeft: "2.5em", marginTop: "0em" }}>
         <Menu.Item
-          style={styles.topTitle}
+          style={cssJSON.topTitle}
           name="home"
           active={activeItem === "home"}
           onClick={(e) => {
@@ -266,7 +228,7 @@ export default function HomeLeft() {
           }}
         />
         <Menu.Item
-          style={styles.topTitle}
+          style={cssJSON.topTitle}
           name="project"
           active={activeItem === "project"}
           onClick={(e) => {
@@ -276,7 +238,7 @@ export default function HomeLeft() {
           }}
         />
         <Menu.Item
-          style={styles.topTitle}
+          style={cssJSON.topTitle}
           name="about"
           active={activeItem === "about"}
           onClick={(e) => {
@@ -286,7 +248,7 @@ export default function HomeLeft() {
           }}
         />
         <Menu.Item
-          style={styles.topTitle}
+          style={cssJSON.topTitle}
           name="contact"
           active={activeItem === "contact"}
           onClick={(e) => {

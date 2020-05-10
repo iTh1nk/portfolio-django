@@ -1,16 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
-  Button,
-  Header,
   Icon,
-  Image,
   Menu,
-  Segment,
   Sidebar,
-  Container,
+  Grid,
 } from "semantic-ui-react";
 import { AssignContext } from "./AssignContext";
-import HomeContainer from "./HomeContainer";
+import HomeLeft from "./HomeLeft";
+import HomeRight from "./HomeRight";
+import HomeTop from "./HomeTop";
+import "./HomeContainer.css";
 
 const HorizontalSidebar = ({ animation, direction, visible }) => (
   <Sidebar
@@ -46,31 +45,55 @@ const HorizontalSidebar = ({ animation, direction, visible }) => (
 
 export default function SlideBar() {
   const [visible, setVisible] = useState(false);
+  // const { visible, setVisible } = useContext(AssignContext);
+  const [tabSwitch, setTabSwitch] = useState("home");
 
   return (
     <div>
-      {/* <Button
+      {/* <Icon
+        name="adn"
+        size="big"
+        style={styles.overlayButton}
         onClick={(e) => {
           e.preventDefault();
           setVisible(!visible);
         }}
-      >
-        MainSlide
-      </Button> */}
-      <Sidebar.Pushable style={{ marginTop: "1em" }} id="slide-bar">
-        <HorizontalSidebar animation="push" direction="top" visible={visible} />
+      /> */}
+      {/* <Sidebar.Pushable style={{ marginTop: "1em" }} id="slide-bar">
+        <HorizontalSidebar
+          animation="overlay"
+          direction="top"
+          visible={visible}
+        />
 
         <Sidebar.Pusher
-          dimmed={visible}
+          dimmed={false}
           onClick={(e) => {
             setVisible(false);
           }}
-        >
-          <AssignContext.Provider value={{ visible, setVisible }}>
-            <HomeContainer />
-          </AssignContext.Provider>
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
+        > */}
+              <AssignContext.Provider value={{ tabSwitch, setTabSwitch }}>
+            <Grid centered>
+                <Grid.Row>
+                  <Grid.Column id="home-top">
+                    <HomeTop />
+                  </Grid.Column>
+                </Grid.Row>
+                <hr id="hrDivider" />
+                <Grid.Row>
+                  <Grid.Column width={3} id="home-left">
+                    <HomeLeft />
+                  </Grid.Column>
+                  <Grid.Column id="home-mid"> </Grid.Column>
+                  <Grid.Column width={9} id="home-right">
+                    <HomeRight />
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row> </Grid.Row>
+            </Grid>
+              </AssignContext.Provider>
+        {/* </Sidebar.Pusher>
+      </Sidebar.Pushable> */}
     </div>
   );
 }

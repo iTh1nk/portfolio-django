@@ -1,31 +1,11 @@
 import React, { useContext } from "react";
-import { Responsive, Segment, Image, List, Button } from "semantic-ui-react";
+import { Image, List } from "semantic-ui-react";
 import { AssignContext } from "./AssignContext";
+import cssJSON from "./cssJSON.json";
 
 export default function HomeLeft() {
-  const { tabSwitch, setTabSwitch } = useContext(AssignContext);
-  const styles = {
-    nameStyle: {
-      marginBottom: "0em",
-      marginTop: ".5em",
-    },
-    subPosition: {
-      color: "grey",
-      marginTop: "0em",
-      fontStyle: "italic",
-    },
-    linkStyle: {
-      color: "",
-    },
-    indentStyle: {
-      marginLeft: ".8em",
-    },
-    itemStyle: {
-      marginBottom: ".3em",
-    },
-    stickyStyle: {},
-  };
-  const debugArr = ["home", "item1", "item2", "item3"];
+  const { setTabSwitch } = useContext(AssignContext);
+
   return (
     <>
       <div
@@ -35,20 +15,20 @@ export default function HomeLeft() {
         }}
       >
         <Image src="/favicon.ico" size="small" />
-        <h2 style={styles.nameStyle}>Chao Feng</h2>
-        <span style={styles.subPosition}>Full Stack Developer</span>
+        <h2 style={cssJSON.nameStyle}>Chao Feng</h2>
+        <span style={cssJSON.subPosition}>Full Stack Developer</span>
       </div>
       <br />
       <div>
         <h3>Projects</h3>
-        <List style={styles.indentStyle}>
+        <List style={cssJSON.indentStyle}>
           <List.Item
-            style={styles.itemStyle}
+            style={cssJSON.itemStyle}
             icon="folder"
             content={
               <a
-                href="mailto:fnchao@hotmail.com"
-                style={styles.linkStyle}
+                href="/"
+                style={cssJSON.linkStyle}
                 onClick={(e) => {
                   e.preventDefault();
                   setTabSwitch("item1");
@@ -59,12 +39,12 @@ export default function HomeLeft() {
             }
           />
           <List.Item
-            style={styles.itemStyle}
+            style={cssJSON.itemStyle}
             icon="folder"
             content={
               <a
-                href="https://github.com/iTh1nk"
-                style={styles.linkStyle}
+                href="/"
+                style={cssJSON.linkStyle}
                 onClick={(e) => {
                   e.preventDefault();
                   setTabSwitch("item2");
@@ -75,12 +55,12 @@ export default function HomeLeft() {
             }
           />
           <List.Item
-            style={styles.itemStyle}
+            style={cssJSON.itemStyle}
             icon="folder"
             content={
               <a
-                href="https://twitter.com/_ith1nk"
-                style={styles.linkStyle}
+                href="/"
+                style={cssJSON.linkStyle}
                 onClick={(e) => {
                   e.preventDefault();
                   setTabSwitch("item3");
@@ -92,36 +72,36 @@ export default function HomeLeft() {
           />
         </List>
         <h3>About</h3>
-        <List style={styles.indentStyle}>
+        <List style={cssJSON.indentStyle}>
           <List.Item
-            style={styles.itemStyle}
+            style={cssJSON.itemStyle}
             icon="github"
             content={
-              <a href="https://github.com/iTh1nk" style={styles.linkStyle}>
+              <a href="https://github.com/iTh1nk" style={cssJSON.linkStyle}>
                 Github
               </a>
             }
           />
           <List.Item
-            style={styles.itemStyle}
+            style={cssJSON.itemStyle}
             icon="linkedin"
             content={
               <a
                 href="https://www.linkedin.com/in/chaofeng16/"
-                style={styles.linkStyle}
+                style={cssJSON.linkStyle}
               >
                 LinkIn
               </a>
             }
           />
-          <List.Item style={styles.itemStyle}>
+          <List.Item style={cssJSON.itemStyle}>
             <List.Icon name="marker" />
             <List.Content
-              style={styles.linkStyle}
+              style={cssJSON.linkStyle}
               content={
                 <a
                   href="https://goo.gl/maps/CGy8mmSajrxYQSNu6"
-                  style={styles.linkStyle}
+                  style={cssJSON.linkStyle}
                 >
                   Irvine, CA
                 </a>
@@ -130,42 +110,49 @@ export default function HomeLeft() {
           </List.Item>
         </List>
         <h3>Contact</h3>
-        <List style={styles.indentStyle}>
+        <List style={cssJSON.indentStyle}>
           <List.Item
-            style={styles.itemStyle}
+            style={cssJSON.itemStyle}
             icon="twitter"
             content={
-              <a href="https://twitter.com/_ith1nk" style={styles.linkStyle}>
+              <a href="https://twitter.com/_ith1nk" style={cssJSON.linkStyle}>
                 Twitter
               </a>
             }
           />
           <List.Item
-            style={styles.itemStyle}
+            style={cssJSON.itemStyle}
             icon="facebook"
             content={
               <a
                 href="https://www.facebook.com/iTh1nk"
-                style={styles.linkStyle}
+                style={cssJSON.linkStyle}
               >
                 Facebook
               </a>
             }
           />
           <List.Item
-            style={styles.itemStyle}
+            style={cssJSON.itemStyle}
             icon="mail"
             content={
-              <a href="mailto:fnchao@hotmail.com" style={styles.linkStyle}>
+              <a href="mailto:fnchao@hotmail.com" style={cssJSON.linkStyle}>
                 fnchao@hotmail.com
               </a>
             }
           />
           <List.Item
-            style={styles.itemStyle}
+            style={cssJSON.itemStyle}
             icon="send"
             content={
-              <a href="/message" style={styles.linkStyle}>
+              <a
+                href="/"
+                style={cssJSON.linkStyle}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setTabSwitch("sendMessage");
+                }}
+              >
                 Send Message
               </a>
             }

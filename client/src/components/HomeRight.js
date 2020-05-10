@@ -1,11 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { AssignContext } from "./AssignContext";
 import { List, Icon, Image } from "semantic-ui-react";
 import TextLoop from "react-text-loop";
 
 export default function HomeRight() {
-  const { tabSwitch, setTabSwitch } = useContext(AssignContext);
-  useEffect(() => {}, [tabSwitch]);
+  const { tabSwitch } = useContext(AssignContext);
 
   const styles = {
     listIcon: ">",
@@ -37,11 +36,14 @@ export default function HomeRight() {
     return (
       <>
         <TextLoop interval="3000">
-          <h1 style={styles.titleStyle}>Welcome~~ 😄</h1>
-          <h1 style={styles.titleStyle}>你好 👋</h1>
+          <h1 style={styles.titleStyle}>Welcome~~ <span role="img" aria-label="str">😄</span></h1>
+          <h1 style={styles.titleStyle}>你好 <span role="img" aria-label="str">👋</span></h1>
         </TextLoop>
         <div style={styles.mainParagraph}>
-          <p>My name is Chao Feng. Welcome to my tiny but growing HOME! </p>
+          <p>
+            Welcome to my tiny but growing HOME! My name is Chao Feng. Here you
+            will find something about me! <Icon name="user secret" />{" "}
+          </p>
         </div>
       </>
     );
@@ -225,6 +227,9 @@ export default function HomeRight() {
       </>
     );
   }
+  function SendMessage() {
+    return "Send Me A Message.";
+  }
 
   if (tabSwitch === "home") {
     return (
@@ -251,6 +256,13 @@ export default function HomeRight() {
     return (
       <>
         <Item3 />
+      </>
+    );
+  }
+  if (tabSwitch === "sendMessage") {
+    return (
+      <>
+        <SendMessage />
       </>
     );
   }
