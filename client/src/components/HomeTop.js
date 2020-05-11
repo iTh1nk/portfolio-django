@@ -2,6 +2,9 @@ import React, { useContext, useState, useReducer } from "react";
 import { Image, List, Grid, Menu } from "semantic-ui-react";
 import { AssignContext } from "./AssignContext";
 import cssJSON from "./cssJSON.json";
+import HomeContact from "./HomeContact";
+import HomeAbout from "./HomeAbout";
+import HomeProject from "./HomeProject";
 
 export default function HomeLeft() {
   const { setTabSwitch } = useContext(AssignContext);
@@ -112,46 +115,7 @@ export default function HomeLeft() {
         <Grid columns={2} style={cssJSON.tabContent}>
           <Grid.Row>
             <Grid.Column>
-              <List style={cssJSON.indentStyle}>
-                <List.Item
-                  style={cssJSON.itemStyle}
-                  icon="github"
-                  content={
-                    <a
-                      href="https://github.com/iTh1nk"
-                      style={cssJSON.linkStyle}
-                    >
-                      Github
-                    </a>
-                  }
-                />
-                <List.Item
-                  style={cssJSON.itemStyle}
-                  icon="linkedin"
-                  content={
-                    <a
-                      href="https://www.linkedin.com/in/chaofeng16/"
-                      style={cssJSON.linkStyle}
-                    >
-                      LinkIn
-                    </a>
-                  }
-                />
-                <List.Item style={cssJSON.itemStyle}>
-                  <List.Icon name="marker" />
-                  <List.Content
-                    style={cssJSON.linkStyle}
-                    content={
-                      <a
-                        href="https://goo.gl/maps/CGy8mmSajrxYQSNu6"
-                        style={cssJSON.linkStyle}
-                      >
-                        Irvine, CA
-                      </a>
-                    }
-                  />
-                </List.Item>
-              </List>
+              <HomeAbout />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -164,47 +128,7 @@ export default function HomeLeft() {
         <Grid columns={2} style={cssJSON.tabContent}>
           <Grid.Row>
             <Grid.Column>
-              <List style={cssJSON.indentStyle}>
-                <List.Item
-                  style={cssJSON.itemStyle}
-                  icon="twitter"
-                  content={
-                    <a
-                      href="https://twitter.com/_ith1nk"
-                      style={cssJSON.linkStyle}
-                    >
-                      Twitter
-                    </a>
-                  }
-                />
-                <List.Item
-                  style={cssJSON.itemStyle}
-                  icon="mail"
-                  content={
-                    <a
-                      href="mailto:fnchao@hotmail.com"
-                      style={cssJSON.linkStyle}
-                    >
-                      fnchao@hotmail.com
-                    </a>
-                  }
-                />
-                <List.Item
-                  style={cssJSON.itemStyle}
-                  icon="send"
-                  content={
-                    <span
-                      style={cssJSON.linkStyle}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setTabSwitch("sendMessage");
-                      }}
-                    >
-                      Send Message
-                    </span>
-                  }
-                />
-              </List>
+              <HomeContact />
             </Grid.Column>
           </Grid.Row>
         </Grid>

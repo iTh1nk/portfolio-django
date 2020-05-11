@@ -40,6 +40,10 @@ export default function HomeRight() {
       fontSize: "1.3em",
       wordSpacing: ".1em",
     },
+    hr: {
+      marginTop: "3em",
+      marginBottom: "3em",
+    },
   };
 
   function Home() {
@@ -47,7 +51,7 @@ export default function HomeRight() {
       <>
         <TextLoop interval="3000">
           <h1 style={styles.titleStyle}>
-            Welcome~~{" "}
+            Ciao~~{" "}
             <span role="img" aria-label="str">
               😄
             </span>
@@ -61,10 +65,11 @@ export default function HomeRight() {
         </TextLoop>
         <div style={styles.mainParagraph}>
           <p>
-            Welcome to my tiny but growing HOME! My name is Chao Feng. Here you
+            Welcome to my tiny but growing HOME! My name is Chao Feng. Here, you
             will find something about me! <Icon name="user secret" />{" "}
           </p>
         </div>
+        <hr style={styles.hr} />
       </>
     );
   }
