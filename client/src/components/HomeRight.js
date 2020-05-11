@@ -66,7 +66,10 @@ export default function HomeRight() {
         <div style={styles.mainParagraph}>
           <p>
             Welcome to my tiny but growing HOME! My name is Chao Feng. Here, you
-            will find something about me! <Icon name="user secret" />{" "}
+            will find something about me!{" "}
+            <a href="/admin/">
+              <Icon name="user secret" />
+            </a>
           </p>
         </div>
         <hr style={styles.hr} />

@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useContext } from "react";
 import {
   Menu,
   Segment,
@@ -9,28 +9,7 @@ import {
   Header,
 } from "semantic-ui-react";
 import Signup from "./Signup";
-
-function Home() {
-  return (
-    <>
-      <div>"ADMIN HOME"</div>
-    </>
-  );
-}
-function AddUser() {
-  return (
-    <>
-      <div>"Add User"</div>
-    </>
-  );
-}
-function AddPost() {
-  return (
-    <>
-      <div>"Add Post"</div>
-    </>
-  );
-}
+import { AssignContext } from "./AssignContext";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -59,14 +38,62 @@ function reducer(state, action) {
         ...state,
         modalShow: false,
       };
+    case "logout":
+      return {
+        ...state,
+        logoutLoading: true,
+      };
   }
 }
 
+function Home() {
+  return (
+    <>
+      <Segment>
+        <div>"ADMIN HOME"</div>
+      </Segment>
+      <Segment loading={true}>
+        <div>
+          "ADMIN <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br /> HOME"
+        </div>
+      </Segment>
+    </>
+  );
+}
+function AddUser() {
+  return (
+    <>
+      <Segment>
+        <div>"Add User"</div>
+      </Segment>
+    </>
+  );
+}
+function AddPost() {
+  return (
+    <>
+      <Segment>
+        <div>"Add Post"</div>
+      </Segment>
+    </>
+  );
+}
+
 export default function Admin() {
-  const [{ tabAdmin, modalShow }, dispatch] = useReducer(reducer, {
-    tabAdmin: <Home />,
-    modalShow: false,
-  });
+  const [{ tabAdmin, modalShow, logoutLoading }, dispatch] = useReducer(
+    reducer,
+    {
+      tabAdmin: <Home />,
+      modalShow: false,
+      logoutLoading: false,
+    }
+  );
+  const { setIsAuthenticated } = useContext(AssignContext);
   const [activeItem, setActiveItem] = useState("home");
   const handleItemClick = (e, name) => {
     e.preventDefault();
@@ -74,9 +101,14 @@ export default function Admin() {
     dispatch({ type: name });
   };
 
-  const handleLogout = () => {
-    dispatch({ type: "modalShow" });
-    return "Logged Out";
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch({ type: "logout" });
+    setTimeout(() => {
+      localStorage.removeItem("auth");
+      setIsAuthenticated(false);
+      window.location.replace("/");
+    }, 1000);
   };
 
   const styles = {
@@ -84,8 +116,8 @@ export default function Admin() {
       marginTop: "1em",
     },
     logout: {
-      color: "red"
-    }
+      color: "red",
+    },
   };
   return (
     <>
@@ -107,14 +139,21 @@ export default function Admin() {
             onClick={(e) => handleItemClick(e, "add user")}
           />
           <Menu.Menu position="right">
-            <Menu.Item style={styles.logout} name="logout" onClick={(e) => handleLogout(e)} />
+            <Menu.Item
+              style={styles.logout}
+              name="logout"
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch({ type: "modalShow" });
+              }}
+            />
           </Menu.Menu>
         </Menu>
-
-        <Segment>{tabAdmin}</Segment>
+        {/* Admin Content */}
+        {tabAdmin}
       </Container>
 
-      <Modal open={modalShow} basic size="small">
+      <Modal open={modalShow} basic size="small" centered={false}>
         <Header icon="alarm" content="Confirm Logout? " />
         {/* <Modal.Content>
           <hr />
@@ -123,7 +162,12 @@ export default function Admin() {
           </p>
         </Modal.Content> */}
         <Modal.Actions>
-          <Button color="yellow" inverted>
+          <Button
+            color="yellow"
+            inverted
+            onClick={(e) => handleLogout(e)}
+            loading={logoutLoading}
+          >
             <Icon name="checkmark" /> Yes
           </Button>
           <Button

@@ -7,22 +7,22 @@ import "./ErrorMessage.css";
 import { AssignContext } from "./AssignContext";
 
 export default function Login() {
-  const [open, setOpen] = useState(true);
   const { setIsAuthenticated } = useContext(AssignContext);
+
   return (
     <>
       <Modal
         // basic
         centered={false}
         dimmer="blurring"
-        open={open}
+        open={true}
         closeOnEscape={false}
         closeOnDimmerClick={false}
       >
         <Modal.Header>
           Authentication
           <Icon
-            style={{ position: "absolute", top: "1em", right: "2em" }}
+            style={{ position: "absolute", top: ".5em", right: "1em" }}
             name="home"
             onClick={(e) => {
               e.preventDefault();
@@ -43,8 +43,9 @@ export default function Login() {
             onSubmit={(values, formikApi) => {
               setTimeout(() => {
                 console.log(JSON.stringify(values));
+                localStorage.setItem("auth", true);
                 formikApi.setSubmitting(false);
-                setIsAuthenticated(true)
+                setIsAuthenticated(true);
               }, 1000);
             }}
             render={({ handleReset }) => (
