@@ -154,7 +154,18 @@ export default function Admin() {
       </Container>
 
       <Modal open={modalShow} basic size="small" centered={false}>
-        <Header icon="alarm" content="Confirm Logout? " />
+        <Header>
+          <Icon name="alarm" style={{ display: "inline-block" }} />
+          Confirm Logout?
+          <Icon
+            name="home"
+            style={{ position: "absolute", top: ".5em", right: "1em" }}
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.replace("/");
+            }}
+          />
+        </Header>
         {/* <Modal.Content>
           <hr />
           <p>

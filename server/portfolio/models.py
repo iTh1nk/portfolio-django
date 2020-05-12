@@ -1,16 +1,9 @@
 from django.db import models
-from portfolio.managers import SalesQuerySet
+from django.contrib.auth import get_user_model
 
 
-class Sales(models.Model):
-    region = models.CharField(max_length=255)
-    country = models.CharField(max_length=255)
-    ptype = models.CharField(max_length=255)
-    channel = models.CharField(max_length=255)
-    date = models.DateField(auto_now=False)
-    quantity = models.IntegerField()
-    price = models.FloatField()
-    cost = models.FloatField()
-    revenue = models.FloatField()
-    profit = models.FloatField()
-    objects = SalesQuerySet.as_manager()
+class Posts(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    author = models.CharField(max_length=255)
+    created_on = models.DateTimeField(auto_now_add=True)
