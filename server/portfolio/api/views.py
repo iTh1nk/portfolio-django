@@ -1,10 +1,41 @@
-from rest_framework.generics import ListAPIView
 from portfolio.models import Posts
 from .serializers import PostsSerializer
-
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework import status
+
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
+
+import datetime
+
+
+@csrf_exempt
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def login(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    if username is None or password is None:
+        return Response({'error': 'Username and Password are required!'}, status=status.HTTP_400_BAD_REQUEST)
+    user = authenticate(username=username, password=password)
+    if not user:
+        return Response({'error': 'Invalid Credentials'}, status=status.HTTP_404_NOT_FOUND)
+    token, _ = Token.objects.get_or_create(user=user)
+    token.created = datetime.datetime.utcnow()
+    token.save()
+    return Response({'token': token.key}, status=status.HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(['GET'])
+def token_test(request):
+    token = request.data.get('token')
+    print(token.created)
+    return Response("OK")
 
 
 @api_view(['GET', 'DELETE', 'PUT'])
@@ -22,6 +53,7 @@ def get_delete_update_post(request, pk):
         return Response({})
 
 
+@csrf_exempt
 @api_view(['GET'])
 def get_post(request, pk):
     try:
@@ -33,7 +65,9 @@ def get_post(request, pk):
     return Response(serializer.data)
 
 
+@csrf_exempt
 @api_view(['GET'])
+@permission_classes([])
 def get_posts(request):
     posts = Posts.objects.all()
     serializer = PostsSerializer(posts, many=True)
