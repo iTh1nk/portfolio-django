@@ -35,7 +35,7 @@ def login(request):
     token.save()
     print(token.created)
 
-    return Response({'token': token.key}, status=status.HTTP_200_OK)
+    return Response({'token': "Token " + token.key}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
