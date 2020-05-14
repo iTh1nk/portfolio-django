@@ -14,6 +14,12 @@ from rest_framework.authtoken.models import Token
 import datetime
 from django.utils import timezone
 
+from django.shortcuts import render
+
+
+# def index(request):
+#     return render(request, "build/index.html")
+
 
 @api_view(['POST'])
 @permission_classes((AllowAny,))
@@ -33,7 +39,6 @@ def login(request):
     token, _ = Token.objects.get_or_create(user=user)
     token.created = timezone.now()
     token.save()
-    print(token.created)
 
     return Response({'token': "Token " + token.key}, status=status.HTTP_200_OK)
 
@@ -50,8 +55,8 @@ def signup(request):
             username=data['username'], email=data['email'], password=data['password'])
         default_group = Group.objects.get(name='test')
         default_group.user_set.add(user)
-        return Response({'Message': 'User created; assigned to group <de_group>'}, status=status.HTTP_201_CREATED)
-    return Response({"Message": 'Error Occurred!'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'User created; assigned to group <de_group>'}, status=status.HTTP_201_CREATED)
+    return Response({"message": 'Error Occurred!'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -64,11 +69,10 @@ def logout(request):
                     status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
-def token_test(request):
+@api_view(['POST'])
+def isTokenValid(request):
     token = request.data.get('token')
-    print(token.created)
-    return Response("OK")
+    return Response({'message': True})
 
 
 @api_view(['GET', 'DELETE', 'PUT'])
@@ -87,6 +91,7 @@ def get_delete_update_post(request, pk):
 
 
 @api_view(['GET'])
+@permission_classes((AllowAny,))
 def get_post(request, pk):
     try:
         post = Posts.objects.get(pk=pk)
@@ -98,10 +103,11 @@ def get_post(request, pk):
 
 
 @api_view(['GET'])
+@permission_classes((AllowAny,))
 def get_posts(request):
     posts = Posts.objects.all()
     serializer = PostsSerializer(posts, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data[::-1])
 
 
 @api_view(['POST'])
@@ -112,7 +118,6 @@ def post_posts(request):
         'author': request.data.get('author')
     }
     serializer = PostsSerializer(data=data)
-    # print(serializer)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

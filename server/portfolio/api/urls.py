@@ -1,6 +1,6 @@
 from django.urls import path, include
 # from .views import PostsListAPIView
-from .views import get_post, get_posts, post_posts, delete_post, put_post, login, token_test, logout, signup
+from .views import get_post, get_posts, post_posts, delete_post, put_post, login, isTokenValid, logout, signup
 from django.conf.urls import url
 from . import views
 
@@ -15,5 +15,5 @@ urlpatterns = [
     url(r'^login/$', login, name='user_login'),
     url(r'^signup/$', signup, name='user_signup'),
     url(r'^logout/$', logout, name='user_logout'),
-    url(r'^test/$', token_test)
+    url(r'^istokened/$', isTokenValid, name='authentication_check')
 ]
