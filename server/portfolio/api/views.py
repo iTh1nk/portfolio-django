@@ -8,12 +8,13 @@ from rest_framework import status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User, Group
 from rest_framework.authtoken.models import Token
 
 import datetime
+from django.utils import timezone
 
 
-@csrf_exempt
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def login(request):
@@ -24,13 +25,45 @@ def login(request):
     user = authenticate(username=username, password=password)
     if not user:
         return Response({'error': 'Invalid Credentials'}, status=status.HTTP_404_NOT_FOUND)
+
+    if Token.objects.get_or_create(user=user):
+        new_key = Token.objects.filter(user=user)[0].generate_key()
+        Token.objects.filter(user=user).update(key=new_key)
+
     token, _ = Token.objects.get_or_create(user=user)
-    token.created = datetime.datetime.utcnow()
+    token.created = timezone.now()
     token.save()
+    print(token.created)
+
     return Response({'token': token.key}, status=status.HTTP_200_OK)
 
 
-@csrf_exempt
+@api_view(['POST'])
+def signup(request):
+    data = {
+        'username': request.data.get('username'),
+        'email': request.data.get('email'),
+        'password': request.data.get('password')
+    }
+    if data['username'] and data['email'] and data['password']:
+        user = User.objects.create_user(
+            username=data['username'], email=data['email'], password=data['password'])
+        default_group = Group.objects.get(name='test')
+        default_group.user_set.add(user)
+        return Response({'Message': 'User created; assigned to group <de_group>'}, status=status.HTTP_201_CREATED)
+    return Response({"Message": 'Error Occurred!'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def logout(request):
+    token = request.data.get('token')
+    Token.objects.filter(
+        key='ca8857021cbafa92aabe26807a5188540bd38030').delete()
+    return Response({"success": "Successfully logged out."},
+                    status=status.HTTP_200_OK)
+
+
 @api_view(['GET'])
 def token_test(request):
     token = request.data.get('token')
@@ -53,7 +86,6 @@ def get_delete_update_post(request, pk):
         return Response({})
 
 
-@csrf_exempt
 @api_view(['GET'])
 def get_post(request, pk):
     try:
@@ -65,9 +97,7 @@ def get_post(request, pk):
     return Response(serializer.data)
 
 
-@csrf_exempt
 @api_view(['GET'])
-@permission_classes([])
 def get_posts(request):
     posts = Posts.objects.all()
     serializer = PostsSerializer(posts, many=True)
@@ -82,6 +112,7 @@ def post_posts(request):
         'author': request.data.get('author')
     }
     serializer = PostsSerializer(data=data)
+    # print(serializer)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
