@@ -104,11 +104,11 @@ export default function Admin() {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch({ type: "logout" });
+    localStorage.removeItem("auth");
+    window.location.replace("/");
     setTimeout(() => {
-      localStorage.removeItem("auth");
       setIsAuthenticated(false);
-      window.location.replace("/");
-    }, 1000);
+    }, 2000);
   };
 
   const styles = {

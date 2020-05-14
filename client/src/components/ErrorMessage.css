@@ -1,3 +1,23 @@
 .sui-error-message {
   color: darkred;
 }
+
+.sui-error-message-custom {
+  display: inline-block;
+  font-size: .8em;
+  color: red;
+  margin-left: 2em;
+  border-radius: .5em;
+  animation: blinkingBackground 2s;
+}
+
+@keyframes blinkingBackground {
+  0% {
+    background-color: red;
+    color: white;
+  }
+  100% {
+    background-color: none;
+    color: red;
+  }
+}

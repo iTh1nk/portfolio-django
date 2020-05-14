@@ -11,6 +11,7 @@ import {
   Checkbox,
 } from "formik-semantic-ui";
 import * as Yup from "yup";
+import HomeRightPosts from "./HomeRightPosts";
 import "./ErrorMessage.css";
 
 export default function HomeRight() {
@@ -67,12 +68,13 @@ export default function HomeRight() {
           <p>
             Welcome to my tiny but growing HOME! My name is Chao Feng. Here, you
             will find something about me!{" "}
-            <a href="/admin/">
+            <a href="/admin">
               <Icon name="user secret" />
             </a>
           </p>
         </div>
         <hr style={styles.hr} />
+        <HomeRightPosts />
       </>
     );
   }

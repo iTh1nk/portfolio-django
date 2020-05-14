@@ -8,6 +8,7 @@ import { AssignContext } from "./AssignContext";
 
 export default function Login() {
   const { setIsAuthenticated } = useContext(AssignContext);
+  const [loginError, setLoginError] = useState("");
 
   return (
     <>
@@ -21,6 +22,9 @@ export default function Login() {
       >
         <Modal.Header>
           Authentication
+          {loginError && (
+            <div className="sui-error-message-custom">{loginError}</div>
+          )}
           <Icon
             style={{ position: "absolute", top: ".5em", right: "1em" }}
             name="home"
@@ -41,12 +45,24 @@ export default function Login() {
               password: Yup.string().required("Password is required"),
             })}
             onSubmit={(values, formikApi) => {
-              setTimeout(() => {
-                console.log(JSON.stringify(values));
-                localStorage.setItem("auth", true);
-                formikApi.setSubmitting(false);
-                setIsAuthenticated(true);
-              }, 1000);
+              setLoginError("");
+              let data = {
+                username: values.username,
+                password: values.password,
+              };
+              Axios.post("http://localhost:8000/api/v1/login/", data)
+                .then((resp) => {
+                  setLoginError("");
+                  if (resp.data.token) {
+                    localStorage.setItem("auth", resp.data.token);
+                    setIsAuthenticated(true);
+                  }
+                })
+                .catch((err) => {
+                  setLoginError(err.response.data.error);
+                  console.log(err.response);
+                  formikApi.setSubmitting(false);
+                });
             }}
             render={({ handleReset }) => (
               <Form.Children>
