@@ -1,4 +1,10 @@
-import React, { useState, useReducer, useContext, createRef } from "react";
+import React, {
+  useState,
+  useReducer,
+  useContext,
+  createRef,
+  useEffect,
+} from "react";
 import {
   Menu,
   Container,
@@ -15,6 +21,8 @@ import Users from "./AdminTabUsers";
 import Posts from "./AdminTabPosts";
 import Messages from "./AdminTabMessages";
 import Home from "./AdminTabHome";
+import toaster from "toasted-notes";
+import "toasted-notes/src/styles.css";
 
 function reducer(state, action) {
   switch (action.type) {

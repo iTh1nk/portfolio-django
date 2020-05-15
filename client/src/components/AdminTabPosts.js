@@ -3,8 +3,18 @@ import { Segment, Form, Button, Checkbox, Grid } from "semantic-ui-react";
 import Axios from "axios";
 import "./ErrorMessage.css";
 import moment from "moment";
+import toaster from "toasted-notes";
+import "toasted-notes/src/styles.css";
 
 export default function Posts() {
+  const handleToaster = (content) => {
+    toaster.notify(
+      <div style={{ fontWeight: "bold", color: "darkgreen" }}>{content}</div>,
+      {
+        duration: 3000,
+      }
+    );
+  };
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     Axios.get("http://localhost:8000/api/v1/posts/")
@@ -38,6 +48,7 @@ export default function Posts() {
           console.log("Posted!");
           setSubmitMessage("Posted!");
           handleReset();
+          handleToaster("Posted!")
         }
       })
       .catch((err) => {
@@ -56,6 +67,7 @@ export default function Posts() {
       .then((resp) => {
         console.log("Deleted!");
         setSubmitMessage("Deleted!");
+        handleToaster("Deleted!");
       })
       .catch((err) => {
         if (err) {
@@ -117,17 +129,11 @@ export default function Posts() {
           {inputError && (
             <span className="sui-error-message-custom">{inputError}</span>
           )}
-          {submitMessage && (
-            <span className="success-message-custom">{submitMessage}</span>
-          )}
         </Form>
       </Segment>
 
       <Segment>
         <h3>Delete Post</h3>
-        {submitMessage && (
-          <span className="success-message-custom">{submitMessage}</span>
-        )}
         {posts.map((item, idx) => (
           <div key={idx} style={styles.delete}>
             <h5>
