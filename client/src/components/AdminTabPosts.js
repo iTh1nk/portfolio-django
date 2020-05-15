@@ -97,7 +97,7 @@ export default function Posts() {
     e.preventDefault();
     let data = {
       title: document.getElementById("titleEdit").value,
-      author: document.getElementById("author").value,
+      author: document.getElementById("authorEdit").value,
       content: document.getElementById("contentEdit").value,
     };
     if (!(data.title && data.author && data.content)) {

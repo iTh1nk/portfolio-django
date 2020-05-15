@@ -25,5 +25,9 @@
   },
   "img": {
     "paddingLeft": "5em"
+  },
+  "resume": {
+    "width": ".1em",
+    "height": ".1em"
   }
 }

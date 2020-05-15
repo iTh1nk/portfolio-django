@@ -39,7 +39,15 @@ export default function HomeLeft() {
         <Grid columns={2}>
           <Grid.Row>
             <Grid.Column style={cssJSON.img}>
-              <Image src="/favicon.ico" size="small" />
+              <Image
+                src="/avatar.jpg"
+                size="small"
+                style={{
+                  borderRadius: "20%",
+                  boxShadow:
+                    "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                }}
+              />
             </Grid.Column>
             <Grid.Column>
               <h2 style={cssJSON.nameStyle}>Chao Feng</h2>
@@ -56,53 +64,7 @@ export default function HomeLeft() {
         <Grid columns={2} style={cssJSON.tabContent}>
           <Grid.Row>
             <Grid.Column>
-              <List style={cssJSON.indentStyle}>
-                <List.Item
-                  style={cssJSON.itemStyle}
-                  icon="folder"
-                  content={
-                    <span
-                      style={cssJSON.linkStyle}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setTabSwitch("item1");
-                      }}
-                    >
-                      Bill Book
-                    </span>
-                  }
-                />
-                <List.Item
-                  style={cssJSON.itemStyle}
-                  icon="folder"
-                  content={
-                    <span
-                      style={cssJSON.linkStyle}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setTabSwitch("item2");
-                      }}
-                    >
-                      Covid-19 OC
-                    </span>
-                  }
-                />
-                <List.Item
-                  style={cssJSON.itemStyle}
-                  icon="folder"
-                  content={
-                    <span
-                      style={cssJSON.linkStyle}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setTabSwitch("item3");
-                      }}
-                    >
-                      Safe Zone
-                    </span>
-                  }
-                />
-              </List>
+              <HomeProject />
             </Grid.Column>
           </Grid.Row>
         </Grid>
