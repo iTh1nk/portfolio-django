@@ -1,7 +1,6 @@
-import React, { useState, useReducer, useContext } from "react";
+import React, { useState, useReducer, useContext, createRef } from "react";
 import {
   Menu,
-  Segment,
   Container,
   Modal,
   Icon,
@@ -10,6 +9,12 @@ import {
 } from "semantic-ui-react";
 import Signup from "./Signup";
 import { AssignContext } from "./AssignContext";
+import Axios from "axios";
+import AdminTopShow from "./AdminTopShow";
+import Users from "./AdminTabUsers";
+import Posts from "./AdminTabPosts";
+import Messages from "./AdminTabMessages";
+import Home from "./AdminTabHome";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -18,15 +23,20 @@ function reducer(state, action) {
         ...state,
         tabAdmin: <Home />,
       };
-    case "add user":
+    case "user tab":
       return {
         ...state,
-        tabAdmin: <AddUser />,
+        tabAdmin: <Users />,
       };
-    case "add post":
+    case "post tab":
       return {
         ...state,
-        tabAdmin: <AddPost />,
+        tabAdmin: <Posts />,
+      };
+    case "message tab":
+      return {
+        ...state,
+        tabAdmin: <Messages />,
       };
     case "modalShow":
       return {
@@ -46,45 +56,7 @@ function reducer(state, action) {
   }
 }
 
-function Home() {
-  return (
-    <>
-      <Segment>
-        <div>"ADMIN HOME"</div>
-      </Segment>
-      <Segment loading={true}>
-        <div>
-          "ADMIN <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br /> HOME"
-        </div>
-      </Segment>
-    </>
-  );
-}
-function AddUser() {
-  return (
-    <>
-      <Segment>
-        <div>"Add User"</div>
-      </Segment>
-    </>
-  );
-}
-function AddPost() {
-  return (
-    <>
-      <Segment>
-        <div>"Add Post"</div>
-      </Segment>
-    </>
-  );
-}
-
-export default function Admin() {
+export default function Admin(props) {
   const [{ tabAdmin, modalShow, logoutLoading }, dispatch] = useReducer(
     reducer,
     {
@@ -103,12 +75,28 @@ export default function Admin() {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    dispatch({ type: "logout" });
-    localStorage.removeItem("auth");
-    window.location.replace("/");
-    setTimeout(() => {
-      setIsAuthenticated(false);
-    }, 2000);
+    console.log(props.axiosHeader);
+    Axios.post(
+      "http://localhost:8000/api/v1/logout/",
+      { token: window.localStorage.getItem("auth") },
+      {
+        headers: {
+          Authorization: window.localStorage.getItem("auth"),
+        },
+      }
+    )
+      .then((resp) => {
+        console.log("Logged Out!");
+        dispatch({ type: "logout" });
+        localStorage.removeItem("auth");
+        window.location.replace("/");
+        setTimeout(() => {
+          setIsAuthenticated(false);
+        }, 2000);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   };
 
   const styles = {
@@ -119,9 +107,11 @@ export default function Admin() {
       color: "red",
     },
   };
+  const contextRef = createRef();
   return (
     <>
       <Container style={styles.container}>
+        <AdminTopShow />
         <Menu pointing secondary>
           <Menu.Item
             name="Home"
@@ -129,14 +119,19 @@ export default function Admin() {
             onClick={(e) => handleItemClick(e, "home")}
           />
           <Menu.Item
-            name="Edit Posts"
-            active={activeItem === "add post"}
-            onClick={(e) => handleItemClick(e, "add post")}
+            name="Posts"
+            active={activeItem === "post tab"}
+            onClick={(e) => handleItemClick(e, "post tab")}
           />
           <Menu.Item
-            name="Edit Users"
-            active={activeItem === "add user"}
-            onClick={(e) => handleItemClick(e, "add user")}
+            name="Messages"
+            active={activeItem === "message tab"}
+            onClick={(e) => handleItemClick(e, "message tab")}
+          />
+          <Menu.Item
+            name="Users"
+            active={activeItem === "user tab"}
+            onClick={(e) => handleItemClick(e, "user tab")}
           />
           <Menu.Menu position="right">
             <Menu.Item

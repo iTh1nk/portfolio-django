@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Login from "./Login";
 import Admin from "./Admin";
 import { AssignContext } from "./AssignContext";
 import Axios from "axios";
 
-let token = localStorage.getItem("auth");
-
 export default function AdminContainer() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    Axios.post("http://localhost:8000/api/v1/istokened/", token, {
-      headers: {
-        Authorization: token,
-      },
-    })
+    Axios.post(
+      "http://localhost:8000/api/v1/istokened/",
+      { token: window.localStorage.getItem("auth") },
+      {
+        headers: {
+          Authorization: window.localStorage.getItem("auth"),
+        },
+      }
+    )
       .then((resp) => {
         if (resp.data.message === true) {
           setIsAuthenticated(true);

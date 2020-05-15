@@ -76,10 +76,10 @@ export default function SlideBar() {
           </Grid.Row>
           <hr id="hrDivider" />
           <Grid.Row id="horizonTop">
-            <Grid.Column width={3} id="home-left">
+            <Grid.Column width={4} id="home-left">
               <HomeLeft />
             </Grid.Column>
-            <Grid.Column id="home-mid"> </Grid.Column>
+            {/* <Grid.Column id="home-mid"> </Grid.Column> */}
             <Grid.Column width={9} id="home-right">
               <HomeRight />
             </Grid.Column>

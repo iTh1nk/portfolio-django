@@ -8,10 +8,10 @@
   color: red;
   margin-left: 2em;
   border-radius: .5em;
-  animation: blinkingBackground 2s;
+  animation: blinkingBackgroundError 2s;
 }
 
-@keyframes blinkingBackground {
+@keyframes blinkingBackgroundError {
   0% {
     background-color: red;
     color: white;
@@ -19,5 +19,24 @@
   100% {
     background-color: none;
     color: red;
+  }
+}
+
+.success-message-custom {
+  display: inline-block;
+  font-size: .8em;
+  color: green;
+  margin-left: 2em;
+  border-radius: .5em;
+  animation: blinkingBackgroundSuccess 2s;
+}
+@keyframes blinkingBackgroundSuccess {
+  0% {
+    background-color: green;
+    color: white;
+  }
+  100% {
+    background-color: none;
+    color: green;
   }
 }

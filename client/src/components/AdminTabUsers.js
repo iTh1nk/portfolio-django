@@ -1,0 +1,12 @@
+import React from "react";
+import { Segment } from "semantic-ui-react";
+
+export default function AdminTabUsers() {
+  return (
+    <>
+      <Segment>
+        <div>"Add User"</div>
+      </Segment>
+    </>
+  );
+}

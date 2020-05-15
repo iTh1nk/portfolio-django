@@ -11,7 +11,9 @@ export default function HomeRightPosts() {
         setPosts(resp.data);
       })
       .catch((err) => {
-        console.log(err.response);
+        if (err) {
+          console.log(err);
+        }
       });
   }, []);
 
