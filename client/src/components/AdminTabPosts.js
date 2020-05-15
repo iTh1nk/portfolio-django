@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Segment, Form, Button, Checkbox, Grid } from "semantic-ui-react";
+import {
+  Segment,
+  Form,
+  Button,
+  Checkbox,
+  Grid,
+  Dropdown,
+} from "semantic-ui-react";
 import Axios from "axios";
 import "./ErrorMessage.css";
 import moment from "moment";
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
 
+let dropDownArray = [];
+
 export default function Posts() {
+  const [isClicked, setIsClicked] = useState();
+  const [isHidden, setIsHidden] = useState("none");
   const handleToaster = (content) => {
     toaster.notify(
       <div style={{ fontWeight: "bold", color: "darkgreen" }}>{content}</div>,
@@ -15,20 +26,27 @@ export default function Posts() {
       }
     );
   };
+  const [selectedPost, setSelectedPost] = useState([
+    { title: "", author: "", content: "" },
+  ]);
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     Axios.get("http://localhost:8000/api/v1/posts/")
       .then((resp) => {
+        dropDownArray = [];
         setPosts(resp.data);
+        resp.data.map((item, idx) => {
+          dropDownArray.push({ key: idx, text: item.title, value: item.id });
+        });
       })
       .catch((err) => {
         if (err) {
           console.log(err);
         }
       });
-  }, []);
+  }, [isClicked]);
   const [inputError, setInputError] = useState("");
-  const [submitMessage, setSubmitMessage] = useState("");
+  const [inputErrorEdit, setInputErrorEdit] = useState("");
   const handleSubmit = (e) => {
     let data = {
       title: document.getElementById("title").value,
@@ -36,7 +54,7 @@ export default function Posts() {
       content: document.getElementById("content").value,
     };
     if (!(data.title && data.author && data.content)) {
-      return setInputError("All fields are required!");
+      return setInputError("All create fields are required!");
     }
     Axios.post("http://localhost:8000/api/v1/posts/add/", data, {
       headers: {
@@ -46,9 +64,9 @@ export default function Posts() {
       .then((resp) => {
         if (resp.data.message === "ok") {
           console.log("Posted!");
-          setSubmitMessage("Posted!");
+          setIsClicked(!isClicked);
           handleReset();
-          handleToaster("Posted!")
+          handleToaster("Posted!");
         }
       })
       .catch((err) => {
@@ -66,7 +84,7 @@ export default function Posts() {
     })
       .then((resp) => {
         console.log("Deleted!");
-        setSubmitMessage("Deleted!");
+        setIsClicked(!isClicked);
         handleToaster("Deleted!");
       })
       .catch((err) => {
@@ -75,10 +93,53 @@ export default function Posts() {
         }
       });
   };
-  const handleOnChange = (e) => {
+  const handleEdit = (e, id) => {
+    e.preventDefault();
+    let data = {
+      title: document.getElementById("titleEdit").value,
+      author: document.getElementById("author").value,
+      content: document.getElementById("contentEdit").value,
+    };
+    if (!(data.title && data.author && data.content)) {
+      return setInputErrorEdit("All edit fields are required!");
+    }
+    Axios.put("http://localhost:8000/api/v1/posts/put/" + id, data, {
+      headers: {
+        Authorization: window.localStorage.getItem("auth"),
+      },
+    })
+      .then((resp) => {
+        handleToaster("Updated!");
+        setSelectedPost({ title: "", author: "", content: "" });
+        setIsHidden("none");
+        setIsClicked(!isClicked);
+        handleReset();
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+          setInputErrorEdit("Select post first!");
+        }
+      });
+  };
+  const handleErrorOnChange = (e) => {
     e.preventDefault();
     setInputError("");
-    setSubmitMessage("");
+    setInputErrorEdit("");
+  };
+  const handleSelectionChange = (e, id) => {
+    Axios.get("http://localhost:8000/api/v1/post/" + id)
+      .then((resp) => {
+        setSelectedPost(resp.data);
+        setIsHidden("inline");
+        console.log(resp.data);
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+          setSelectedPost({ title: "", author: "", content: "" });
+        }
+      });
   };
   const handleReset = (e) => {
     document.getElementById("title").value = "";
@@ -94,14 +155,14 @@ export default function Posts() {
   return (
     <>
       <Segment>
-        <h3>Add New Post</h3>
+        <h3>Add New Post: </h3>
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Form.Field>
             <label>Title</label>
             <Form.Input
               id="title"
               placeholder="Input title..."
-              onChange={(e) => handleOnChange(e)}
+              onChange={(e) => handleErrorOnChange(e)}
             />
           </Form.Field>
           <Form.Field>
@@ -110,7 +171,7 @@ export default function Posts() {
               id="author"
               placeholder="Input author..."
               defaultValue="Chao"
-              onChange={(e) => handleOnChange(e)}
+              onChange={(e) => handleErrorOnChange(e)}
             />
           </Form.Field>
           <Form.Field>
@@ -118,14 +179,18 @@ export default function Posts() {
             <textarea
               id="content"
               placeholder="Input content..."
-              onChange={(e) => handleOnChange(e)}
+              onChange={(e) => handleErrorOnChange(e)}
             />
           </Form.Field>
           <Form.Field>
             <Checkbox label="Pin to Top?" />
           </Form.Field>
-          <Button type="submit">Submit</Button>
-          <Button onClick={(e) => handleReset(e)}>Reset</Button>
+          <Button type="submit" color="blue" size="mini">
+            Submit
+          </Button>
+          <Button onClick={(e) => handleReset(e)} size="mini">
+            Reset
+          </Button>
           {inputError && (
             <span className="sui-error-message-custom">{inputError}</span>
           )}
@@ -133,7 +198,7 @@ export default function Posts() {
       </Segment>
 
       <Segment>
-        <h3>Delete Post</h3>
+        <h3>Delete Post: </h3>
         {posts.map((item, idx) => (
           <div key={idx} style={styles.delete}>
             <h5>
@@ -154,7 +219,56 @@ export default function Posts() {
       </Segment>
 
       <Segment>
-        <h3>Edit Post</h3>
+        <h3>Edit Post: </h3>
+        <Dropdown
+          clearable
+          fluid
+          options={dropDownArray}
+          selection
+          placeholder="Select Post to Edit..."
+          onChange={(e, { value }) => handleSelectionChange(e, value)}
+        />
+        <div style={{ marginTop: "2em" }}>
+          <Form
+            onSubmit={(e) => handleEdit(e, selectedPost.id)}
+            style={{ display: isHidden }}
+          >
+            <Form.Field>
+              <label>Title</label>
+              <Form.Input
+                id="titleEdit"
+                placeholder="Input title..."
+                onChange={(e) => handleErrorOnChange(e)}
+                defaultValue={selectedPost.title}
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>Author</label>
+              <Form.Input
+                id="authorEdit"
+                placeholder="Input author..."
+                defaultValue="Chao"
+                onChange={(e) => handleErrorOnChange(e)}
+                defaultValue={selectedPost.author}
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>Content</label>
+              <textarea
+                id="contentEdit"
+                placeholder="Input content..."
+                onChange={(e) => handleErrorOnChange(e)}
+                defaultValue={selectedPost.content}
+              />
+            </Form.Field>
+            <Button type="submit" color="blue" size="mini">
+              Submit
+            </Button>
+            {inputErrorEdit && (
+              <span className="sui-error-message-custom">{inputErrorEdit}</span>
+            )}
+          </Form>
+        </div>
       </Segment>
       <Grid>
         <Grid.Row></Grid.Row>
