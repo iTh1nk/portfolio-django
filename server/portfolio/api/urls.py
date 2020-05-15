@@ -6,7 +6,7 @@ from . import views
 
 urlpatterns = [
     # path('api/posts', PostsListAPIView.as_view()),
-    url(r'^posts/(?P<pk>\d+)$', views.get_post, name='get_post'),
+    url(r'^post/(?P<pk>\d+)$', views.get_post, name='get_post'),
     url(r'^posts/$', views.get_posts, name='get_posts'),
     url(r'^posts/add/$', views.post_posts, name='post_posts'),
     url(r'^posts/del/(?P<pk>\d+)$', views.delete_post, name='delete_post'),

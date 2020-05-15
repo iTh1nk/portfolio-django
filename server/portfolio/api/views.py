@@ -60,12 +60,10 @@ def signup(request):
 
 
 @api_view(['POST'])
-@permission_classes((AllowAny,))
 def logout(request):
     token = request.data.get('token')
-    Token.objects.filter(
-        key='ca8857021cbafa92aabe26807a5188540bd38030').delete()
-    return Response({"success": "Successfully logged out."},
+    Token.objects.filter(key=token[6:]).delete()
+    return Response({"message": 'ok'},
                     status=status.HTTP_200_OK)
 
 
@@ -120,7 +118,7 @@ def post_posts(request):
     serializer = PostsSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response({'message': 'ok'}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -130,7 +128,6 @@ def delete_post(request, pk):
         post = Posts.objects.get(pk=pk)
     except Posts.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-
     post.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
