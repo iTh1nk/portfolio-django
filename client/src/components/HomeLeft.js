@@ -1,92 +1,14 @@
 import React, { useContext, useState, useReducer } from "react";
-import {
-  Image,
-  List,
-  Icon,
-  Modal,
-  Button,
-  Header,
-  Menu,
-} from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import { AssignContext } from "./AssignContext";
 import cssJSON from "./cssJSON.json";
 import HomeContact from "./HomeContact";
 import HomeAbout from "./HomeAbout";
 import HomeProject from "./HomeProject";
+import ModalResume from "./ModalResume";
 
 export default function HomeLeft() {
   const { setTabSwitch } = useContext(AssignContext);
-  const [activeItem, setActiveItem] = useState("");
-  const [resumeTab, dispatch] = useReducer(reducer, <ResumeEn />);
-
-  const handleItemClick = (e, name) => {
-    e.preventDefault();
-    setActiveItem(name);
-    dispatch({ type: name });
-    console.log(name);
-  };
-
-  function ResumeEn() {
-    return <>En Resume</>;
-  }
-  function ResumeCn() {
-    return <>Cn Resume</>;
-  }
-
-  function reducer(state, action) {
-    switch (action.type) {
-      case "English":
-        return <ResumeEn />;
-      case "中文":
-        return <ResumeCn />;
-      default:
-        return <ResumeEn />;
-    }
-  }
-
-  function ModalResume() {
-    return (
-      <Modal
-        dimmer="blurring"
-        trigger={
-          <a
-            href=""
-            style={{
-              color: "black",
-            }}
-          >
-            <Icon name="sticky note" size="small" />
-          </a>
-        }
-        closeIcon
-      >
-        <Modal.Header>Resume</Modal.Header>
-        <Modal.Content image>
-          <Modal.Description>
-            <Header>
-              <Menu pointing>
-                <Menu.Item
-                  name="English"
-                  active={activeItem === "English"}
-                  onClick={(e, { name }) => handleItemClick(e, name)}
-                />
-                <Menu.Item
-                  name="中文"
-                  active={activeItem === "中文"}
-                  onClick={(e, { name }) => handleItemClick(e, name)}
-                />
-              </Menu>
-            </Header>
-            {resumeTab}
-            <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" />
-          </Modal.Description>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button secondary>Close</Button>
-        </Modal.Actions>
-      </Modal>
-    );
-  }
 
   return (
     <>
