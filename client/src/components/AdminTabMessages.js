@@ -56,34 +56,38 @@ export default function Messages() {
       marginRight: "1em",
     },
     button: {
-      lineHeight: ".1em"
+      lineHeight: ".1em",
     },
   };
   return (
     <>
       <Segment>
         <h3>Received Messages</h3>
-        {messages.map((item, idx) => (
-          <div key={idx}>
-            <span style={styles.username}>{item.username}</span>
-            <span style={styles.isLike}>{item.is_like ? "Liked" : "Nah"}</span>
-            <span style={styles.date}>
-              {moment(item.created_on).format("MMMM YYYY, HH:mm:ss")}
-            </span>
-            <br />
-            <span style={styles.message}>{item.message}</span>
-            <Button
-              style={styles.button}
-              size="mini"
-              color="red"
-              onClick={(e) => handleSubmit(e, item.id)}
-            >
-              Del
-            </Button>
-            <br />
-            <br />
-          </div>
-        ))}
+        <Segment>
+          {messages.map((item, idx) => (
+            <div key={idx}>
+              <span style={styles.username}>{item.username}</span>
+              <span style={styles.isLike}>
+                {item.is_like ? "Liked" : "Nah"}
+              </span>
+              <span style={styles.date}>
+                {moment(item.created_on).format("MMMM YYYY, HH:mm:ss")}
+              </span>
+              <br />
+              <span style={styles.message}>{item.message}</span>
+              <Button
+                style={styles.button}
+                size="mini"
+                color="red"
+                onClick={(e) => handleSubmit(e, item.id)}
+              >
+                Del
+              </Button>
+              <br />
+              <br />
+            </div>
+          ))}
+        </Segment>
       </Segment>
     </>
   );

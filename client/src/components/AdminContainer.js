@@ -27,6 +27,7 @@ export default function AdminContainer() {
       })
       .catch((err) => {
         console.log(err.response);
+        setIsLoading(false);
       });
   }, [isAuthenticated]);
 

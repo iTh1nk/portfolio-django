@@ -150,126 +150,134 @@ export default function Posts() {
     delete: { marginBottom: "2em" },
     delButton: {
       marginLeft: "1em",
-      lineHeight: ".1em"
+      lineHeight: ".1em",
     },
   };
   return (
     <>
       <Segment>
         <h3>Add New Post: </h3>
-        <Form onSubmit={(e) => handleSubmit(e)}>
-          <Form.Field>
-            <label>Title</label>
-            <Form.Input
-              id="title"
-              placeholder="Input title..."
-              onChange={(e) => handleErrorOnChange(e)}
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>Author</label>
-            <Form.Input
-              id="author"
-              placeholder="Input author..."
-              defaultValue="Chao"
-              onChange={(e) => handleErrorOnChange(e)}
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>Content</label>
-            <textarea
-              id="content"
-              placeholder="Input content..."
-              onChange={(e) => handleErrorOnChange(e)}
-            />
-          </Form.Field>
-          <Form.Field>
-            <Checkbox label="Pin to Top?" />
-          </Form.Field>
-          <Button type="submit" color="blue" size="mini">
-            Submit
-          </Button>
-          <Button onClick={(e) => handleReset(e)} size="mini">
-            Reset
-          </Button>
-          {inputError && (
-            <span className="sui-error-message-custom">{inputError}</span>
-          )}
-        </Form>
-      </Segment>
-
-      <Segment>
-        <h3>Delete Post: </h3>
-        {posts.map((item, idx) => (
-          <div key={idx} style={styles.delete}>
-            <h5>
-              {idx + 1}: {item.title}
-            </h5>
-            <span>{moment(item.created_on).format("MMMM YYYY, HH:mm")}</span>
-            <Button
-              size="mini"
-              basic
-              color="red"
-              style={styles.delButton}
-              onClick={(e) => handleDel(e, item.id)}
-            >
-              Delete
-            </Button>
-          </div>
-        ))}
-      </Segment>
-
-      <Segment>
-        <h3>Edit Post: </h3>
-        <Dropdown
-          clearable
-          fluid
-          options={dropDownArray}
-          selection
-          placeholder="Select Post to Edit..."
-          onChange={(e, { value }) => handleSelectionChange(e, value)}
-        />
-        <div style={{ marginTop: "2em" }}>
-          <Form
-            onSubmit={(e) => handleEdit(e, selectedPost.id)}
-            style={{ display: isHidden }}
-          >
+        <Segment>
+          <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Field>
               <label>Title</label>
               <Form.Input
-                id="titleEdit"
+                id="title"
                 placeholder="Input title..."
                 onChange={(e) => handleErrorOnChange(e)}
-                defaultValue={selectedPost.title}
               />
             </Form.Field>
             <Form.Field>
               <label>Author</label>
               <Form.Input
-                id="authorEdit"
+                id="author"
                 placeholder="Input author..."
                 defaultValue="Chao"
                 onChange={(e) => handleErrorOnChange(e)}
-                defaultValue={selectedPost.author}
               />
             </Form.Field>
             <Form.Field>
               <label>Content</label>
               <textarea
-                id="contentEdit"
+                id="content"
                 placeholder="Input content..."
                 onChange={(e) => handleErrorOnChange(e)}
-                defaultValue={selectedPost.content}
               />
+            </Form.Field>
+            <Form.Field>
+              <Checkbox label="Pin to Top?" />
             </Form.Field>
             <Button type="submit" color="blue" size="mini">
               Submit
             </Button>
-            {inputErrorEdit && (
-              <span className="sui-error-message-custom">{inputErrorEdit}</span>
+            <Button onClick={(e) => handleReset(e)} size="mini">
+              Reset
+            </Button>
+            {inputError && (
+              <span className="sui-error-message-custom">{inputError}</span>
             )}
           </Form>
-        </div>
+        </Segment>
+      </Segment>
+
+      <Segment>
+        <h3>Delete Post: </h3>
+        <Segment>
+          {posts.map((item, idx) => (
+            <div key={idx} style={styles.delete}>
+              <h5>
+                {idx + 1}: {item.title}
+              </h5>
+              <span>{moment(item.created_on).format("MMMM YYYY, HH:mm")}</span>
+              <Button
+                size="mini"
+                basic
+                color="red"
+                style={styles.delButton}
+                onClick={(e) => handleDel(e, item.id)}
+              >
+                Delete
+              </Button>
+            </div>
+          ))}
+        </Segment>
+      </Segment>
+
+      <Segment>
+        <h3>Edit Post: </h3>
+        <Segment>
+          <Dropdown
+            clearable
+            fluid
+            options={dropDownArray}
+            selection
+            placeholder="Select Post to Edit..."
+            onChange={(e, { value }) => handleSelectionChange(e, value)}
+          />
+          <div style={{ marginTop: "2em" }}>
+            <Form
+              onSubmit={(e) => handleEdit(e, selectedPost.id)}
+              style={{ display: isHidden }}
+            >
+              <Form.Field>
+                <label>Title</label>
+                <Form.Input
+                  id="titleEdit"
+                  placeholder="Input title..."
+                  onChange={(e) => handleErrorOnChange(e)}
+                  defaultValue={selectedPost.title}
+                />
+              </Form.Field>
+              <Form.Field>
+                <label>Author</label>
+                <Form.Input
+                  id="authorEdit"
+                  placeholder="Input author..."
+                  defaultValue="Chao"
+                  onChange={(e) => handleErrorOnChange(e)}
+                  defaultValue={selectedPost.author}
+                />
+              </Form.Field>
+              <Form.Field>
+                <label>Content</label>
+                <textarea
+                  id="contentEdit"
+                  placeholder="Input content..."
+                  onChange={(e) => handleErrorOnChange(e)}
+                  defaultValue={selectedPost.content}
+                />
+              </Form.Field>
+              <Button type="submit" color="blue" size="mini">
+                Confirm
+              </Button>
+              {inputErrorEdit && (
+                <span className="sui-error-message-custom">
+                  {inputErrorEdit}
+                </span>
+              )}
+            </Form>
+          </div>
+        </Segment>
       </Segment>
       <Grid>
         <Grid.Row></Grid.Row>
