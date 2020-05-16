@@ -150,6 +150,7 @@ export default function Posts() {
     delete: { marginBottom: "2em" },
     delButton: {
       marginLeft: "1em",
+      lineHeight: ".1em"
     },
   };
   return (

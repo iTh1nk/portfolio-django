@@ -119,7 +119,7 @@ export default function Admin(props) {
   return (
     <>
       <Container style={styles.container}>
-        <AdminTopShow />
+        {/* <AdminTopShow /> */}
         <Menu pointing secondary>
           <Menu.Item
             name="Home"

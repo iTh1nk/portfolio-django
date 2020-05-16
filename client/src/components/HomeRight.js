@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AssignContext } from "./AssignContext";
 import { List, Icon, Image } from "semantic-ui-react";
 import TextLoop from "react-text-loop";
@@ -13,9 +13,21 @@ import {
 import * as Yup from "yup";
 import HomeRightPosts from "./HomeRightPosts";
 import "./ErrorMessage.css";
+import Axios from "axios";
+import toaster from "toasted-notes";
 
 export default function HomeRight() {
   const { tabSwitch } = useContext(AssignContext);
+  const [messageError, setMessageError] = useState("");
+
+  const handleToaster = (content) => {
+    toaster.notify(
+      <div style={{ fontWeight: "bold", color: "darkgreen" }}>{content}</div>,
+      {
+        duration: 3000,
+      }
+    );
+  };
 
   const styles = {
     listIcon: ">",
@@ -258,24 +270,6 @@ export default function HomeRight() {
     );
   }
 
-  const validate = (value) => {
-    let errorMessage;
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-      errorMessage = "Invalid email address";
-    }
-    return errorMessage;
-  };
-
-  // Async validation function
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-  const validateAsync = (value) => {
-    return sleep(2000).then(() => {
-      if (["admin", "null", "god"].includes(value)) {
-        throw "Nice try";
-      }
-    });
-  };
   function SendMessage() {
     return (
       <>
@@ -290,8 +284,34 @@ export default function HomeRight() {
             name: Yup.string().required("Name is required"),
             message: Yup.string().required("Message is required"),
           })}
-          onSubmit={console.log("Submitted!")}
-          render={({ handleReset }) => (
+          onSubmit={(values, formikApi) => {
+            let data = {
+              username: values.name,
+              message: values.message,
+              isLike: values.likeMe,
+            };
+            Axios.post("http://localhost:8000/api/v1/messages/add/", data)
+              .then((resp) => {
+                if (resp.data.message === "ok") {
+                  handleToaster("Message Sent. Thanks!");
+                  setTimeout(() => {
+                    formikApi.setSubmitting(false);
+                    window.location.replace("/");
+                  }, 2000);
+                }
+              })
+              .catch((err) => {
+                if (err) {
+                  console.log(err);
+                  setMessageError("Something went wrong! Try later~");
+                  setTimeout(() => {
+                    setMessageError("");
+                    window.location.replace("/");
+                  }, 5000);
+                }
+              });
+          }}
+          render={({ handleReset }, errors) => (
             <Form.Children>
               <Input label="Name" name="name" />
               <TextArea label="Message" name="message" />
@@ -301,7 +321,10 @@ export default function HomeRight() {
                 content="Submit"
                 style={{ marginRight: "1em" }}
               />
-              <Button onClick={handleReset} content="Reset" />
+              <Button type="button" onClick={handleReset} content="Reset" />
+              {messageError && (
+                <span className="sui-error-message-custom">{messageError}</span>
+              )}
             </Form.Children>
           )}
         />
