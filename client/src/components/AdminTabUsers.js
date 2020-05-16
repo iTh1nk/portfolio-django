@@ -5,7 +5,7 @@ export default function AdminTabUsers() {
   return (
     <>
       <Segment>
-        <div>"Add User"</div>
+        <div>"User Tab"</div>
       </Segment>
     </>
   );
