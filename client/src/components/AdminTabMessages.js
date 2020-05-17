@@ -16,6 +16,7 @@ export default function Messages() {
       },
     })
       .then((resp) => {
+        setIsPostLoading(false);
         setMessages(resp.data);
       })
       .catch((err) => {
