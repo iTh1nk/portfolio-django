@@ -50,7 +50,7 @@ export default function HomeRightPosts() {
           </div>
         ))
       ) : (
-        <span>Hang on! All posts are on the way back...</span>
+        <span>Hang on! All posts are on their way back...</span>
       )}
     </>
   );
