@@ -148,7 +148,8 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3009',
-    'http://localhost:3006'
+    'http://localhost:3006',
+    'http://54.64.29.178:3009'
 ]
 
 # TEMPLATES = [
@@ -166,7 +167,8 @@ CORS_ORIGIN_WHITELIST = [
 #         },
 #     },
 # ]
-# STATIC_URL = '/static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'client', "build", "static"),
 # )

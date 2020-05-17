@@ -50,7 +50,7 @@ export default function Login() {
                 username: values.username,
                 password: values.password,
               };
-              Axios.post("http://localhost:8000/api/v1/login/", data)
+              Axios.post("http://54.64.29.178:8000/api/v1/login/", data)
                 .then((resp) => {
                   setLoginError("");
                   if (resp.data.token) {
