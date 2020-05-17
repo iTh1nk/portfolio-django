@@ -365,9 +365,9 @@ export default function ModalResume() {
       // open={true}
       dimmer="blurring"
       trigger={
-        <a href="">
+        <span>
           <Icon name="sticky note" size="small" />
-        </a>
+        </span>
       }
       closeIcon
     >
