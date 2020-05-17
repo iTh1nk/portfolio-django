@@ -85,7 +85,7 @@ export default function Admin(props) {
     e.preventDefault();
     console.log(props.axiosHeader);
     Axios.post(
-      "http://localhost:8000/api/v1/logout/",
+      "http://54.64.29.178:8000/api/v1/logout/",
       { token: window.localStorage.getItem("auth") },
       {
         headers: {

@@ -33,7 +33,7 @@ export default function Posts() {
   ]);
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    Axios.get("http://localhost:8000/api/v1/posts/")
+    Axios.get("http://54.64.29.178:8000/api/v1/posts/")
       .then((resp) => {
         dropDownArray = [];
         setPosts(resp.data);
@@ -62,7 +62,7 @@ export default function Posts() {
     if (!(data.title && data.author && data.content)) {
       return setInputError("All create fields are required!");
     }
-    Axios.post("http://localhost:8000/api/v1/posts/add/", data, {
+    Axios.post("http://54.64.29.178:8000/api/v1/posts/add/", data, {
       headers: {
         Authorization: window.localStorage.getItem("auth"),
       },
@@ -83,7 +83,7 @@ export default function Posts() {
   };
   const handleDel = (e, id) => {
     e.preventDefault();
-    Axios.delete("http://localhost:8000/api/v1/posts/del/" + id, {
+    Axios.delete("http://54.64.29.178:8000/api/v1/posts/del/" + id, {
       headers: {
         Authorization: window.localStorage.getItem("auth"),
       },
@@ -112,7 +112,7 @@ export default function Posts() {
     if (!(data.title && data.author && data.content)) {
       return setInputErrorEdit("All edit fields are required!");
     }
-    Axios.put("http://localhost:8000/api/v1/posts/put/" + id, data, {
+    Axios.put("http://54.64.29.178:8000/api/v1/posts/put/" + id, data, {
       headers: {
         Authorization: window.localStorage.getItem("auth"),
       },
@@ -137,7 +137,7 @@ export default function Posts() {
     setInputErrorEdit("");
   };
   const handleSelectionChange = (e, id) => {
-    Axios.get("http://localhost:8000/api/v1/post/" + id)
+    Axios.get("http://54.64.29.178:8000/api/v1/post/" + id)
       .then((resp) => {
         setSelectedPost(resp.data);
         setIsHidden("inline");

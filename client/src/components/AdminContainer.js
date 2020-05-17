@@ -12,7 +12,7 @@ export default function AdminContainer() {
 
   useEffect(() => {
     Axios.post(
-      "http://localhost:8000/api/v1/istokened/",
+      "http://54.64.29.178:8000/api/v1/istokened/",
       { token: window.localStorage.getItem("auth") },
       {
         headers: {
