@@ -25,7 +25,7 @@ export default function HomeAbout() {
               href="https://www.linkedin.com/in/chaofeng16/"
               style={cssJSON.linkStyle}
             >
-              LinkIn
+              LinkedIn
             </a>
           }
         />

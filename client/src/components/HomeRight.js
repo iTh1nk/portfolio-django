@@ -15,6 +15,7 @@ import HomeRightPosts from "./HomeRightPosts";
 import "./ErrorMessage.css";
 import Axios from "axios";
 import toaster from "toasted-notes";
+import ModalResume from "./ModalResume";
 
 export default function HomeRight() {
   const { tabSwitch } = useContext(AssignContext);
@@ -78,11 +79,43 @@ export default function HomeRight() {
         </TextLoop>
         <div style={styles.mainParagraph}>
           <p>
-            Welcome to my tiny but growing HOME! My name is Chao Feng. Here, you
-            will find something about me!{" "}
-            <a href="/admin">
+            Welcome to my{" "}
+            <a href="https://github.com/iTh1nk/portfolio-django">
+              "HOME
+              <Icon name="code" size="small" />
+            </a>
+            "! My name is Chao Feng. Here, you will find something about me!{" "}
+            <a href="/admin" style={{ color: "black" }}>
               <Icon name="user secret" />
             </a>
+          </p>
+          <p>
+            I'm a Full Stack Developer. Familiar with major languages and
+            frameworks including MERN, Django, Spring, PostgresSQL, AWS
+            deployment.{" "}
+            <span
+              style={{
+                fontStyle: "italic",
+                fontSize: ".8em",
+                color: "darkblue",
+              }}
+            >
+              {"{Need More Info ? "}
+            </span>
+            <ModalResume />
+            <span
+              style={{
+                fontStyle: "italic",
+                fontSize: ".8em",
+                color: "darkblue",
+              }}
+            >
+              {" : Continue}"}
+            </span>
+          </p>
+          <p>
+            I am currently looking for a full-time job. If want a talk, please
+            reach out to me through 'Contact' section. Thanks.
           </p>
         </div>
         <hr style={styles.hr} />

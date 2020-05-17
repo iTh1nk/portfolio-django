@@ -31,7 +31,7 @@ export default function HomeContact() {
           icon="mail"
           content={
             <a href="mailto:fnchao@hotmail.com" style={cssJSON.linkStyle}>
-              fnchao@hotmail.com
+              Email
             </a>
           }
         />
