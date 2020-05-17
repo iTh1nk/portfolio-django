@@ -128,8 +128,10 @@ export default function HomeRight() {
     return (
       <>
         <div>
-          <h1 style={styles.titleStyle}>Bill Book</h1>
-          <Image src="/bill-book.ico" style={styles.titleImage} />
+          <a href="https://github.com/iTh1nk/billbook-v">
+            <h1 style={styles.titleStyle}>Bill Book</h1>
+            <Image src="/bill-book.ico" style={styles.titleImage} />
+          </a>
         </div>
         <div style={styles.mainParagraph}>
           <List as="ol" style={styles.listStyle}>
@@ -174,8 +176,10 @@ export default function HomeRight() {
     return (
       <>
         <div>
-          <h1 style={styles.titleStyle}>Covid-19 OC</h1>
-          <Image src="/covid.ico" style={styles.titleImage} />
+          <a href="https://github.com/iTh1nk/covid19-react-spring">
+            <h1 style={styles.titleStyle}>Covid-19 OC</h1>
+            <Image src="/covid.ico" style={styles.titleImage} />
+          </a>
         </div>
         <div style={styles.mainParagraph}>
           <List as="ol" style={styles.listStyle}>
@@ -232,8 +236,10 @@ export default function HomeRight() {
     return (
       <>
         <div>
-          <h1 style={styles.titleStyle}>Safe Zone</h1>
-          <Image src="/safe-zone.ico" style={styles.titleImage} />
+          <a href="https://github.com/iTh1nk/Safe-Zone">
+            <h1 style={styles.titleStyle}>Safe Zone</h1>
+            <Image src="/safe-zone.ico" style={styles.titleImage} />
+          </a>
         </div>
         <div style={styles.mainParagraph}>
           <List as="ol" style={styles.listStyle}>
