@@ -7,8 +7,11 @@ from rest_framework import status
 
 from rest_framework.permissions import AllowAny
 
+from portfolio.decorators import admin_by_groups
+
 
 @api_view(['GET'])
+@admin_by_groups
 def get_messages(request):
     messages = Messages.objects.all()
     serializer = MessagesSerializer(messages, many=True)
@@ -31,6 +34,7 @@ def post_messages(request):
 
 
 @api_view(['DELETE'])
+@admin_by_groups
 def delete_message(request, pk):
     try:
         message = Messages.objects.get(pk=pk)

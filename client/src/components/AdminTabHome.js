@@ -1,36 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Segment } from "semantic-ui-react";
 import Axios from "axios";
+import { AssignContext } from "./AssignContext";
 
 export default function Home() {
+  const { isAuthorized, setIsAuthorized } = useContext(AssignContext);
   const [isPostLoading, setIsPostLoading] = useState(true);
   const [isMessageLoading, setIsMessageLoading] = useState(true);
   const [postsCount, setPostsCount] = useState();
   const [messagesCount, setMessagesCount] = useState();
-  Axios.get("http://localhost:8000/api/v1/posts/")
-    .then((resp) => {
-      setPostsCount(resp.data.length);
-      setIsPostLoading(false);
+  useEffect(() => {
+    Axios.get("http://localhost:8000/api/v1/posts/")
+      .then((resp) => {
+        setPostsCount(resp.data.length);
+        setIsPostLoading(false);
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    Axios.get("http://localhost:8000/api/v1/messages/", {
+      headers: {
+        Authorization: window.localStorage.getItem("auth"),
+      },
     })
-    .catch((err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-  Axios.get("http://localhost:8000/api/v1/messages/", {
-    headers: {
-      Authorization: window.localStorage.getItem("auth"),
-    },
-  })
-    .then((resp) => {
-      setMessagesCount(resp.data.length);
-      setIsMessageLoading(false);
-    })
-    .catch((err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
+      .then((resp) => {
+        if (resp.data.message === "nok") {
+          setIsMessageLoading(false);
+          return setIsAuthorized("**Your group does not have permission!**");
+        }
+        setMessagesCount(resp.data.length);
+        setIsMessageLoading(false);
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+  }, []);
   return (
     <>
       <Segment>
@@ -42,7 +50,10 @@ export default function Home() {
         </h5>
         <h5>
           Total Messages:
-          <Segment loading={isMessageLoading}>{messagesCount}</Segment>
+          <Segment loading={isMessageLoading}>
+            {messagesCount}
+            <div className="sui-error-message-custom">{isAuthorized}</div>
+          </Segment>
         </h5>
       </Segment>
     </>

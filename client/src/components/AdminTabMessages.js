@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Segment, Button } from "semantic-ui-react";
 import Axios from "axios";
 import moment from "moment";
+import { AssignContext } from "./AssignContext";
 
 export default function Messages() {
+  const { isAuthorized } = useContext(AssignContext);
+  const [isPostLoading, setIsPostLoading] = useState(true);
   const [messages, setMessages] = useState([]);
   const [isClicked, setIsClicked] = useState();
   useEffect(() => {
@@ -29,6 +32,7 @@ export default function Messages() {
       },
     })
       .then((resp) => {
+        setIsPostLoading(false);
         console.log("Deleted!");
         setIsClicked(!isClicked);
       })
@@ -62,31 +66,35 @@ export default function Messages() {
   return (
     <>
       <Segment>
-        <h3>Received Messages</h3>
-        <Segment>
-          {messages.map((item, idx) => (
-            <div key={idx}>
-              <span style={styles.username}>{item.username}</span>
-              <span style={styles.isLike}>
-                {item.is_like ? "Liked" : "Nah"}
-              </span>
-              <span style={styles.date}>
-                {moment(item.created_on).format("MMMM YYYY, HH:mm:ss")}
-              </span>
-              <br />
-              <span style={styles.message}>{item.message}</span>
-              <Button
-                style={styles.button}
-                size="mini"
-                color="red"
-                onClick={(e) => handleSubmit(e, item.id)}
-              >
-                Del
-              </Button>
-              <br />
-              <br />
-            </div>
-          ))}
+        <h3>Manage Messages</h3>
+        <Segment loading={isPostLoading}>
+          {isAuthorized ? (
+            <div className="sui-error-message-custom">{isAuthorized}</div>
+          ) : (
+            messages.map((item, idx) => (
+              <div key={idx}>
+                <span style={styles.username}>{item.username}</span>
+                <span style={styles.isLike}>
+                  {item.is_like ? "Liked" : "Nah"}
+                </span>
+                <span style={styles.date}>
+                  {moment(item.created_on).format("MMMM YYYY, HH:mm:ss")}
+                </span>
+                <br />
+                <span style={styles.message}>{item.message}</span>
+                <Button
+                  style={styles.button}
+                  size="mini"
+                  color="red"
+                  onClick={(e) => handleSubmit(e, item.id)}
+                >
+                  Del
+                </Button>
+                <br />
+                <br />
+              </div>
+            ))
+          )}
         </Segment>
       </Segment>
     </>

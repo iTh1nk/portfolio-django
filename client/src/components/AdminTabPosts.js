@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Segment,
   Form,
@@ -12,10 +12,12 @@ import "./ErrorMessage.css";
 import moment from "moment";
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
+import { AssignContext } from "./AssignContext";
 
 let dropDownArray = [];
 
 export default function Posts() {
+  const { isAuthorized } = useContext(AssignContext);
   const [isClicked, setIsClicked] = useState();
   const [isHidden, setIsHidden] = useState("none");
   const handleToaster = (content) => {
@@ -48,6 +50,10 @@ export default function Posts() {
   const [inputError, setInputError] = useState("");
   const [inputErrorEdit, setInputErrorEdit] = useState("");
   const handleSubmit = (e) => {
+    if (isAuthorized) {
+      handleReset();
+      return setInputError(isAuthorized);
+    }
     let data = {
       title: document.getElementById("title").value,
       author: document.getElementById("author").value,
@@ -95,6 +101,9 @@ export default function Posts() {
   };
   const handleEdit = (e, id) => {
     e.preventDefault();
+    if (isAuthorized) {
+      return setInputErrorEdit(isAuthorized);
+    }
     let data = {
       title: document.getElementById("titleEdit").value,
       author: document.getElementById("authorEdit").value,
@@ -203,23 +212,29 @@ export default function Posts() {
       <Segment>
         <h3>Delete Post: </h3>
         <Segment>
-          {posts.map((item, idx) => (
-            <div key={idx} style={styles.delete}>
-              <h5>
-                {idx + 1}: {item.title}
-              </h5>
-              <span>{moment(item.created_on).format("MMMM YYYY, HH:mm")}</span>
-              <Button
-                size="mini"
-                basic
-                color="red"
-                style={styles.delButton}
-                onClick={(e) => handleDel(e, item.id)}
-              >
-                Delete
-              </Button>
-            </div>
-          ))}
+          {isAuthorized ? (
+            <div className="sui-error-message-custom">{isAuthorized}</div>
+          ) : (
+            posts.map((item, idx) => (
+              <div key={idx} style={styles.delete}>
+                <h5>
+                  {idx + 1}: {item.title}
+                </h5>
+                <span>
+                  {moment(item.created_on).format("MMMM YYYY, HH:mm")}
+                </span>
+                <Button
+                  size="mini"
+                  basic
+                  color="red"
+                  style={styles.delButton}
+                  onClick={(e) => handleDel(e, item.id)}
+                >
+                  Delete
+                </Button>
+              </div>
+            ))
+          )}
         </Segment>
       </Segment>
 

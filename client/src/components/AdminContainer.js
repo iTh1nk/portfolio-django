@@ -8,6 +8,7 @@ import IsLoading from "./IsLoading";
 export default function AdminContainer() {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState();
 
   useEffect(() => {
     Axios.post(
@@ -45,7 +46,9 @@ export default function AdminContainer() {
 
   return (
     <>
-      <AssignContext.Provider value={{ setIsAuthenticated }}>
+      <AssignContext.Provider
+        value={{ setIsAuthenticated, isAuthorized, setIsAuthorized }}
+      >
         <Admin />
       </AssignContext.Provider>
     </>

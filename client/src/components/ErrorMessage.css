@@ -13,7 +13,7 @@
 
 @keyframes blinkingBackgroundError {
   0% {
-    background-color: red;
+    background-color: orange;
     color: white;
   }
   100% {

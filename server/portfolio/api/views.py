@@ -14,8 +14,7 @@ from rest_framework.authtoken.models import Token
 import datetime
 from django.utils import timezone
 
-from django.shortcuts import render
-
+# from django.shortcuts import render
 
 # def index(request):
 #     return render(request, "build/index.html")
