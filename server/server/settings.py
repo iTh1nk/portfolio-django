@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'l5j5j^tn_!1t_vp9zlyym6k%ek9+^*s3u&u*x&-ea@hu%#(t&t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['54.64.29.178', 'localhost', '127.0.0.1']
 
@@ -128,6 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 
 REST_FRAMEWORK = {
@@ -168,7 +169,6 @@ CORS_ORIGIN_WHITELIST = [
 #     },
 # ]
 # STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'client', "build", "static"),
 # )
