@@ -83,7 +83,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'HOST': '',
-        'NAME': 'dj_portfolio2',
+        'NAME': 'dj_portfolio',
         'USER': os.environ.get('DATABASE_USER'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
         'PORT': 5432
@@ -153,7 +153,7 @@ CORS_ORIGIN_WHITELIST = [
     'http://home.we0mmm.site',
     'http://localhost:3009',
     'http://localhost:3006',
-    'http://54.64.29.178:3009'
+    'http://54.64.29.178:3009',
 ]
 
 # TEMPLATES = [
