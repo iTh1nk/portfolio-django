@@ -329,7 +329,7 @@ export default function HomeRight() {
               message: values.message,
               isLike: values.likeMe,
             };
-            Axios.post("http://54.64.29.178:8000/api/v1/messages/add/", data)
+            Axios.post(process.env.REACT_APP_API + "/api/v1/messages/add/", data)
               .then((resp) => {
                 if (resp.data.message === "ok") {
                   handleToaster("Message Sent. Thanks!");

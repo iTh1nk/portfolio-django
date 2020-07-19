@@ -6,7 +6,7 @@ export default function HomeRightPosts() {
   const [posts, setPosts] = useState(["NA"]);
 
   useEffect(() => {
-    Axios.get("http://54.64.29.178:8000/api/v1/posts/")
+    Axios.get(process.env.REACT_APP_API + "/api/v1/posts/")
       .then((resp) => {
         setPosts(resp.data);
       })

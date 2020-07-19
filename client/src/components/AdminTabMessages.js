@@ -10,7 +10,7 @@ export default function Messages() {
   const [messages, setMessages] = useState([]);
   const [isClicked, setIsClicked] = useState();
   useEffect(() => {
-    Axios.get("http://54.64.29.178:8000/api/v1/messages/", {
+    Axios.get(process.env.REACT_APP_API + "/api/v1/messages/", {
       headers: {
         Authorization: window.localStorage.getItem("auth"),
       },
@@ -27,7 +27,7 @@ export default function Messages() {
   }, [isClicked]);
   const handleSubmit = (e, id) => {
     e.preventDefault();
-    Axios.delete("http://54.64.29.178:8000/api/v1/messages/del/" + id, {
+    Axios.delete(process.env.REACT_APP_API + "/api/v1/messages/del/" + id, {
       headers: {
         Authorization: window.localStorage.getItem("auth"),
       },

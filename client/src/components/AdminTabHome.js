@@ -10,7 +10,7 @@ export default function Home() {
   const [postsCount, setPostsCount] = useState();
   const [messagesCount, setMessagesCount] = useState();
   useEffect(() => {
-    Axios.get("http://54.64.29.178:8000/api/v1/posts/")
+    Axios.get(process.env.REACT_APP_API + "/api/v1/posts/")
       .then((resp) => {
         setPostsCount(resp.data.length);
         setIsPostLoading(false);
@@ -20,7 +20,7 @@ export default function Home() {
           console.log(err);
         }
       });
-    Axios.get("http://54.64.29.178:8000/api/v1/messages/", {
+    Axios.get(process.env.REACT_APP_API + "/api/v1/messages/", {
       headers: {
         Authorization: window.localStorage.getItem("auth"),
       },
