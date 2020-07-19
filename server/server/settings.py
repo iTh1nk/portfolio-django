@@ -151,7 +151,6 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_WHITELIST = [
     'http://home.we0mmm.site',
-    'http://home.we0mmm.site/',
     'http://localhost:3009',
     'http://localhost:3006',
     'http://54.64.29.178:3009'
