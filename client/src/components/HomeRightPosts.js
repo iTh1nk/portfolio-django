@@ -28,6 +28,7 @@ export default function HomeRightPosts() {
       fontFamily: "'Fira Sans Extra Condensed', sans-serif",
       fontSize: "1.3em",
       wordSpacing: ".1em",
+      lineHeight: "1.5em"
     },
     author: {
       marginLeft: "1em",
@@ -44,7 +45,8 @@ export default function HomeRightPosts() {
               {moment(item.created_on).format("MMMM YYYY, HH:mm")}
               <span style={styles.author}>- {item.author}</span>
             </span>
-            <p style={styles.content}>{item.content}</p>
+            {/* <p style={styles.content}>{item.content}</p> */}
+            <div style={styles.content} className="ck-content" dangerouslySetInnerHTML={{__html: item.content}} />
             <br />
             <br />
           </div>

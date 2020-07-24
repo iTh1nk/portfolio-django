@@ -13,10 +13,14 @@ import moment from "moment";
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
 import { AssignContext } from "./AssignContext";
+import CKEditor from "@ckeditor/ckeditor5-react";
+import BalloonEditor from "@ckeditor/ckeditor5-build-balloon";
 
 let dropDownArray = [];
 
 export default function Posts() {
+  const [ckeditorContent, setCkeditorContent] = useState("");
+  const [ckeditorContentUpdate, setCkeditorContentUpdate] = useState("");
   const { isAuthorized } = useContext(AssignContext);
   const [isClicked, setIsClicked] = useState();
   const [isHidden, setIsHidden] = useState("none");
@@ -57,7 +61,7 @@ export default function Posts() {
     let data = {
       title: document.getElementById("title").value,
       author: document.getElementById("author").value,
-      content: document.getElementById("content").value,
+      content: ckeditorContent,
     };
     if (!(data.title && data.author && data.content)) {
       return setInputError("All create fields are required!");
@@ -107,7 +111,7 @@ export default function Posts() {
     let data = {
       title: document.getElementById("titleEdit").value,
       author: document.getElementById("authorEdit").value,
-      content: document.getElementById("contentEdit").value,
+      content: ckeditorContentUpdate,
     };
     if (!(data.title && data.author && data.content)) {
       return setInputErrorEdit("All edit fields are required!");
@@ -185,12 +189,67 @@ export default function Posts() {
                 onChange={(e) => handleErrorOnChange(e)}
               />
             </Form.Field>
-            <Form.Field>
+            {/* <Form.Field>
               <label>Content</label>
               <textarea
                 id="content"
                 placeholder="Input content..."
                 onChange={(e) => handleErrorOnChange(e)}
+              />
+            </Form.Field> */}
+            <Form.Field>
+              <label>CKEditor</label>
+              <CKEditor
+                editor={BalloonEditor}
+                data={"Start Post Here!"}
+                onInit={(editor) => {
+                  // You can store the "editor" and use when it is needed.
+                  // console.log("Editor is ready to use!", editor);
+                }}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  setCkeditorContent(data);
+                  // console.log(editor.ui.componentFactory.names());
+                }}
+                onBlur={(event, editor) => {
+                  // console.log("Blur.", editor);
+                }}
+                onFocus={(event, editor) => {
+                  // console.log("Focus.", editor);
+                }}
+                style={{ float: "right" }}
+                config={{
+                  image: {
+                    resizeUnit: "px",
+                  },
+                  // plugins: [TodoList],
+                  toolbar: [
+                    "heading",
+                    "indent",
+                    "outdent",
+                    "|",
+                    "bold",
+                    "italic",
+                    "selectall",
+                    "link",
+                    "bulletedList",
+                    "numberedList",
+                    "|",
+                    "blockQuote",
+                    "insertTable",
+                    "tablecolumn",
+                    "tablerow",
+                    "mergetablecells",
+                    "|",
+                    "undo",
+                    "redo",
+                    "|",
+                    "imagestyle:full",
+                    "imagestyle:side",
+                    "mediaembed",
+                    "|",
+                  ],
+                }}
               />
             </Form.Field>
             <Form.Field>
@@ -273,13 +332,68 @@ export default function Posts() {
                   defaultValue={selectedPost.author}
                 />
               </Form.Field>
-              <Form.Field>
+              {/* <Form.Field>
                 <label>Content</label>
                 <textarea
                   id="contentEdit"
                   placeholder="Input content..."
                   onChange={(e) => handleErrorOnChange(e)}
                   defaultValue={selectedPost.content}
+                />
+              </Form.Field> */}
+              <Form.Field>
+                <label>CKEditor</label>
+                <CKEditor
+                  editor={BalloonEditor}
+                  data={selectedPost.content}
+                  onInit={(editor) => {
+                    // You can store the "editor" and use when it is needed.
+                    // console.log("Editor is ready to use!", editor);
+                  }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    setCkeditorContentUpdate(data);
+                    // console.log(editor.ui.componentFactory.names());
+                  }}
+                  onBlur={(event, editor) => {
+                    // console.log("Blur.", editor);
+                  }}
+                  onFocus={(event, editor) => {
+                    // console.log("Focus.", editor);
+                  }}
+                  style={{ float: "right" }}
+                  config={{
+                    image: {
+                      resizeUnit: "px",
+                    },
+                    // plugins: [TodoList],
+                    toolbar: [
+                      "heading",
+                      "indent",
+                      "outdent",
+                      "|",
+                      "bold",
+                      "italic",
+                      "selectall",
+                      "link",
+                      "bulletedList",
+                      "numberedList",
+                      "|",
+                      "blockQuote",
+                      "insertTable",
+                      "tablecolumn",
+                      "tablerow",
+                      "mergetablecells",
+                      "|",
+                      "undo",
+                      "redo",
+                      "|",
+                      "imagestyle:full",
+                      "imagestyle:side",
+                      "mediaembed",
+                      "|",
+                    ],
+                  }}
                 />
               </Form.Field>
               <Button type="submit" color="blue" size="mini">
