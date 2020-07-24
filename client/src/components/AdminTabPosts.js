@@ -157,7 +157,7 @@ export default function Posts() {
   const handleReset = (e) => {
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";
-    document.getElementById("content").value = "";
+    setCkeditorContent("Posted!")
   };
   const styles = {
     delete: { marginBottom: "2em" },

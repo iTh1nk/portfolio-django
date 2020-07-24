@@ -17,7 +17,7 @@ import Signup from "./Signup";
 import { AssignContext } from "./AssignContext";
 import Axios from "axios";
 import AdminTopShow from "./AdminTopShow";
-import Users from "./AdminTabUsers";
+import RNotes from "./AdminTabRnotes";
 import Posts from "./AdminTabPosts";
 import Messages from "./AdminTabMessages";
 import Home from "./AdminTabHome";
@@ -31,10 +31,10 @@ function reducer(state, action) {
         ...state,
         tabAdmin: <Home />,
       };
-    case "user tab":
+    case "notes tab":
       return {
         ...state,
-        tabAdmin: <Users />,
+        tabAdmin: <RNotes />,
       };
     case "post tab":
       return {
@@ -137,9 +137,9 @@ export default function Admin(props) {
             onClick={(e) => handleItemClick(e, "message tab")}
           />
           <Menu.Item
-            name="Users"
-            active={activeItem === "user tab"}
-            onClick={(e) => handleItemClick(e, "user tab")}
+            name="RNotes"
+            active={activeItem === "notes tab"}
+            onClick={(e) => handleItemClick(e, "notes tab")}
           />
           <Menu.Menu position="right">
             <Menu.Item

@@ -102,7 +102,7 @@ def get_post(request, pk):
 @api_view(['GET'])
 @permission_classes((AllowAny,))
 def get_posts(request):
-    posts = Posts.objects.all()
+    posts = Posts.objects.all().order_by("id")
     serializer = PostsSerializer(posts, many=True)
     return Response(serializer.data[::-1])
 
